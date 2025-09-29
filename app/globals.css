@@ -350,6 +350,82 @@ body {
   }
 }
 
+/* Mobile-specific utilities */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* Prevent horizontal scroll on mobile */
+@media (max-width: 768px) {
+  html, body {
+    overflow-x: hidden;
+  }
+
+  /* Better text readability on mobile */
+  p {
+    line-height: 1.7;
+  }
+
+  /* Ensure clickable areas are large enough */
+  a, button {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  /* Adjust font sizes for mobile */
+  h1 {
+    font-size: clamp(1.875rem, 5vw, 3rem);
+  }
+
+  h2 {
+    font-size: clamp(1.5rem, 4vw, 2.25rem);
+  }
+
+  h3 {
+    font-size: clamp(1.25rem, 3.5vw, 1.875rem);
+  }
+
+  /* Stack flex items on mobile */
+  .mobile-stack {
+    @apply flex-col;
+  }
+}
+
+/* Tablet adjustments */
+@media (min-width: 768px) and (max-width: 1024px) {
+  .container-wide {
+    padding: 0 1.5rem;
+  }
+}
+
+/* Touch device improvements */
+@media (hover: none) and (pointer: coarse) {
+  /* Disable hover effects on touch devices */
+  .hover-lift:hover,
+  .hover-glow:hover {
+    transform: none;
+    box-shadow: none;
+  }
+
+  /* Increase tap targets */
+  button, a {
+    padding: 0.75rem 1rem;
+  }
+}
+
+/* Safe area insets for modern phones */
+@supports (padding: max(0px)) {
+  .container-wide {
+    padding-left: max(1rem, env(safe-area-inset-left));
+    padding-right: max(1rem, env(safe-area-inset-right));
+  }
+}
+
 /* High contrast mode support */
 @media (prefers-contrast: high) {
   .card-hover {

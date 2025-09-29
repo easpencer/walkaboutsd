@@ -27,6 +27,13 @@ export const metadata: Metadata = {
   authors: [{ name: 'WalkaboutSD' }],
   creator: 'WalkaboutSD',
   publisher: 'WalkaboutSD',
+  viewport: {
+    width: 'device-width',
+    initialScale: 1,
+    maximumScale: 5,
+  },
+  themeColor: '#2563eb',
+  manifest: '/manifest.json',
   openGraph: {
     type: 'website',
     locale: 'en_US',

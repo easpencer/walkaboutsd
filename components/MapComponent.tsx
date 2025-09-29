@@ -1,8 +1,8 @@
 'use client'
 
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import { MapContainer, TileLayer, Marker, Popup, Polyline } from 'react-leaflet'
-import { Camera, Play, Star } from 'lucide-react'
+import { Camera, Play, Star, Maximize2, Minimize2 } from 'lucide-react'
 import L from 'leaflet'
 import 'leaflet/dist/leaflet.css'
 
@@ -51,9 +51,30 @@ export function MapComponent({
   getWaypointIcon
 }: MapComponentProps) {
   const [mounted, setMounted] = useState(false)
+  const [isFullscreen, setIsFullscreen] = useState(false)
+  const mapContainerRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     setMounted(true)
+  }, [])
+
+  const toggleFullscreen = () => {
+    if (!document.fullscreenElement) {
+      mapContainerRef.current?.requestFullscreen()
+      setIsFullscreen(true)
+    } else {
+      document.exitFullscreen()
+      setIsFullscreen(false)
+    }
+  }
+
+  useEffect(() => {
+    const handleFullscreenChange = () => {
+      setIsFullscreen(!!document.fullscreenElement)
+    }
+
+    document.addEventListener('fullscreenchange', handleFullscreenChange)
+    return () => document.removeEventListener('fullscreenchange', handleFullscreenChange)
   }, [])
 
   const createCustomIcon = (type: string, isActive: boolean = false) => {
@@ -95,13 +116,25 @@ export function MapComponent({
   const currentStyle = mapStyles.find(s => s.id === activeStyle) || mapStyles[0]
 
   return (
-    <MapContainer
-      center={center}
-      zoom={zoom}
-      style={{ height: '100%', width: '100%' }}
-      className="z-0"
-      key={`map-${activeStyle}-${Date.now()}`} // Force unique key to prevent container issues
-    >
+    <div ref={mapContainerRef} className="relative h-full w-full">
+      <button
+        onClick={toggleFullscreen}
+        className="absolute top-4 right-4 z-[1000] bg-white rounded-lg p-2 shadow-lg hover:shadow-xl transition-shadow"
+        title={isFullscreen ? 'Exit fullscreen' : 'View fullscreen'}
+      >
+        {isFullscreen ? (
+          <Minimize2 className="w-5 h-5 text-gray-700" />
+        ) : (
+          <Maximize2 className="w-5 h-5 text-gray-700" />
+        )}
+      </button>
+      <MapContainer
+        center={center}
+        zoom={zoom}
+        style={{ height: '100%', width: '100%' }}
+        className="z-0"
+        key={`map-${activeStyle}-${Date.now()}`} // Force unique key to prevent container issues
+      >
       <TileLayer
         url={currentStyle.url}
         attribution={currentStyle.attribution}
@@ -166,6 +199,7 @@ export function MapComponent({
           </Marker>
         )
       })}
-    </MapContainer>
+      </MapContainer>
+    </div>
   )
 }

@@ -7,10 +7,10 @@ import Link from 'next/link'
 
 const heroContent = [
   {
-    id: 'video',
-    type: 'video',
-    src: '/videos/san-diego-aerial.mp4',
-    poster: 'https://images.unsplash.com/photo-1580655653885-65763b2597d0?w=1920&q=80',
+    id: 'main',
+    type: 'image',
+    src: 'https://images.unsplash.com/photo-1519452575417-564c1401ecc0?w=1920&q=80',
+    poster: 'https://images.unsplash.com/photo-1519452575417-564c1401ecc0?w=1920&q=80',
     title: 'Discover San Diego',
     subtitle: 'One Step at a Time',
     description: 'Experience the magic of America\'s Finest City through immersive walking adventures'

@@ -1,6 +1,10 @@
+'use client'
+
+import { useState } from 'react'
 import { Metadata } from 'next'
 import Image from 'next/image'
 import { Calendar, Clock, Users, Star, CheckCircle, Award, Shield } from 'lucide-react'
+import { BookingModal } from '../../components/BookingModal'
 
 export const metadata: Metadata = {
   title: 'Guided Tours & Experiences | WalkaboutSD',
@@ -107,12 +111,24 @@ const privateOptions = [
 ]
 
 export default function ToursPage() {
+  const [selectedTour, setSelectedTour] = useState<any>(null)
+  const [isBookingOpen, setIsBookingOpen] = useState(false)
+
+  const handleBookTour = (tour: any) => {
+    setSelectedTour({
+      ...tour,
+      type: 'tour' as const,
+      image: tour.image
+    })
+    setIsBookingOpen(true)
+  }
+
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
       <section className="relative h-[50vh] min-h-[500px] overflow-hidden">
         <Image
-          src="https://images.unsplash.com/photo-1520942702018-0862200e6873?w=1920&q=80"
+          src="https://images.unsplash.com/photo-1581833971358-2c8b550f87b3?w=1920&q=80"
           alt="San Diego Sunset Cliffs Walking Tours"
           fill
           className="object-cover"
@@ -121,10 +137,10 @@ export default function ToursPage() {
 
         <div className="relative z-10 h-full flex items-center">
           <div className="container-wide">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 px-4">
               Guided Walking Tours
             </h1>
-            <p className="text-xl text-white/90 mb-8 max-w-2xl">
+            <p className="text-lg sm:text-xl text-white/90 mb-8 max-w-2xl mx-auto px-4">
               Join our expert local guides for unforgettable walking adventures through San Diego's most fascinating neighborhoods.
             </p>
             <div className="flex flex-wrap gap-4">
@@ -149,11 +165,11 @@ export default function ToursPage() {
             Small groups, expert guides, and authentic experiences. All tours include complimentary water and local snacks.
           </p>
 
-          <div className="grid lg:grid-cols-2 gap-8">
+          <div className="grid lg:grid-cols-2 gap-4 sm:gap-6 lg:gap-8">
             {tours.map((tour) => (
-              <div key={tour.id} className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
-                <div className="md:flex">
-                  <div className="md:w-2/5 relative h-64 md:h-auto">
+              <div key={tour.id} className="bg-white rounded-xl sm:rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+                <div className="flex flex-col md:flex-row">
+                  <div className="md:w-2/5 relative h-48 sm:h-56 md:h-auto">
                     <Image
                       src={tour.image}
                       alt={tour.title}
@@ -167,19 +183,19 @@ export default function ToursPage() {
                     )}
                   </div>
 
-                  <div className="md:w-3/5 p-6">
-                    <div className="flex items-start justify-between mb-3">
-                      <div>
-                        <h3 className="text-2xl font-bold mb-2">{tour.title}</h3>
-                        <p className="text-gray-600 mb-4">{tour.description}</p>
+                  <div className="md:w-3/5 p-4 sm:p-6">
+                    <div className="flex flex-col sm:flex-row items-start justify-between mb-3 gap-3 sm:gap-0">
+                      <div className="flex-1">
+                        <h3 className="text-xl sm:text-2xl font-bold mb-2">{tour.title}</h3>
+                        <p className="text-gray-600 mb-4 text-sm sm:text-base">{tour.description}</p>
                       </div>
-                      <div className="text-right">
-                        <div className="text-3xl font-bold text-primary-600">${tour.price}</div>
+                      <div className="text-left sm:text-right flex-shrink-0">
+                        <div className="text-2xl sm:text-3xl font-bold text-primary-600">${tour.price}</div>
                         <div className="text-sm text-gray-500">per person</div>
                       </div>
                     </div>
 
-                    <div className="flex items-center gap-4 mb-4 text-sm">
+                    <div className="flex flex-wrap items-center gap-2 sm:gap-4 mb-4 text-xs sm:text-sm">
                       <div className="flex items-center gap-1">
                         <Star className="w-4 h-4 text-yellow-500 fill-current" />
                         <span className="font-medium">{tour.rating}</span>
@@ -187,11 +203,11 @@ export default function ToursPage() {
                       </div>
                       <span className="flex items-center gap-1">
                         <Clock className="w-4 h-4 text-gray-400" />
-                        {tour.duration}
+                        <span className="truncate">{tour.duration}</span>
                       </span>
                       <span className="flex items-center gap-1">
                         <Users className="w-4 h-4 text-gray-400" />
-                        {tour.groupSize}
+                        <span className="truncate">{tour.groupSize}</span>
                       </span>
                     </div>
 
@@ -206,12 +222,15 @@ export default function ToursPage() {
                       </div>
                     </div>
 
-                    <div className="flex items-center justify-between pt-4 border-t">
+                    <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between pt-4 border-t gap-3 sm:gap-0">
                       <div className="text-sm">
                         <span className="text-gray-500">Next available:</span>
                         <div className="font-medium text-green-600">{tour.nextAvailable}</div>
                       </div>
-                      <button className="btn-primary">
+                      <button
+                        onClick={() => handleBookTour(tour)}
+                        className="btn-primary w-full sm:w-auto justify-center sm:justify-start"
+                      >
                         Book Now
                       </button>
                     </div>
@@ -298,6 +317,16 @@ export default function ToursPage() {
           </div>
         </div>
       </section>
+
+      {/* Booking Modal */}
+      <BookingModal
+        isOpen={isBookingOpen}
+        onClose={() => {
+          setIsBookingOpen(false)
+          setSelectedTour(null)
+        }}
+        item={selectedTour}
+      />
     </div>
   )
 }

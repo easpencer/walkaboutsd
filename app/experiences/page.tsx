@@ -1,8 +1,12 @@
+'use client'
+
+import { useState } from 'react'
 import { Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
 import { Clock, Users, Star, DollarSign, Calendar, MapPin, Utensils, Camera, Music, Hotel, Train, Bike, Car, Check, ArrowRight, Sparkles, Crown, Zap } from 'lucide-react'
 import { experiences } from '@/data/experiences'
+import { BookingModal } from '../../components/BookingModal'
 
 export const metadata: Metadata = {
   title: 'WalkAbout Experiences | Complete San Diego Adventures',

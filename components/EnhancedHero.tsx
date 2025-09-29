@@ -116,20 +116,21 @@ export function EnhancedHero() {
           ) : (
             <motion.div
               key={currentContent.id}
-              initial={{ opacity: 0, scale: 1.1 }}
+              initial={{ opacity: 0, scale: 1.05 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0 }}
-              transition={{ duration: 1.5, ease: "easeOut" }}
-              className="absolute inset-0 bg-cover bg-center"
+              transition={{ duration: 1.2, ease: "easeOut" }}
+              className="absolute inset-0 bg-cover bg-center bg-no-repeat"
               style={{
-                backgroundImage: `url('${currentContent.src}')`
+                backgroundImage: `url('${currentContent.src}')`,
+                willChange: 'transform'
               }}
             />
           )}
         </AnimatePresence>
 
-        {/* Elegant Overlay */}
-        <div className="video-overlay" />
+        {/* Enhanced mobile-friendly overlay */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-black/30" />
 
         {/* Floating Particles */}
         <div className="absolute inset-0 pointer-events-none">
@@ -159,20 +160,20 @@ export function EnhancedHero() {
       {/* Content */}
       <motion.div
         style={{ opacity }}
-        className="relative z-10 h-full flex items-center justify-center text-center px-4 pt-20"
+        className="relative z-10 h-full flex items-center justify-center text-center px-4 pt-24 pb-16 md:pt-32"
       >
-        <div className="max-w-5xl mx-auto">
+        <div className="max-w-6xl mx-auto w-full">
           {/* Floating Badge */}
           <motion.div
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.3 }}
-            className="mb-8"
+            className="mb-6 md:mb-8"
           >
-            <div className="inline-flex items-center gap-2 glass rounded-full px-6 py-3 text-white border border-white/20 hover-glow">
-              <Sparkles className="w-5 h-5 text-yellow-300" />
+            <div className="inline-flex items-center gap-2 glass rounded-full px-4 py-2 md:px-6 md:py-3 text-white border border-white/20 hover-glow text-sm md:text-base">
+              <Sparkles className="w-4 h-4 md:w-5 md:h-5 text-yellow-300" />
               <span className="font-medium">America's Finest City Awaits</span>
-              <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse-glow" />
+              <div className="w-1.5 h-1.5 md:w-2 md:h-2 bg-green-400 rounded-full animate-pulse-glow" />
             </div>
           </motion.div>
 
@@ -184,11 +185,11 @@ export function EnhancedHero() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -30 }}
               transition={{ duration: 0.8, delay: 0.1 }}
-              className="mb-8"
+              className="mb-6 md:mb-8"
             >
-              <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold text-white mb-6 tracking-tight font-serif">
-                <span className="text-glow">{currentContent.title}</span>
-                <span className="block text-transparent bg-clip-text bg-gradient-to-r from-blue-300 via-purple-300 to-pink-300 mt-2">
+              <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-bold text-white mb-4 md:mb-6 tracking-tight font-serif leading-tight">
+                <span className="text-glow drop-shadow-2xl">{currentContent.title}</span>
+                <span className="block text-transparent bg-clip-text bg-gradient-to-r from-blue-300 via-purple-300 to-pink-300 mt-1 md:mt-2 drop-shadow-lg">
                   {currentContent.subtitle}
                 </span>
               </h1>
@@ -197,7 +198,7 @@ export function EnhancedHero() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.5 }}
-                className="text-xl md:text-2xl text-white/90 max-w-3xl mx-auto font-light leading-relaxed"
+                className="text-base sm:text-lg md:text-xl lg:text-2xl text-white/95 max-w-4xl mx-auto font-light leading-relaxed px-4 drop-shadow-lg"
               >
                 {currentContent.description}
               </motion.p>
@@ -209,7 +210,7 @@ export function EnhancedHero() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.8 }}
-            className="flex flex-wrap justify-center gap-6 mb-12"
+            className="flex flex-wrap justify-center gap-3 md:gap-6 mb-8 md:mb-12 px-4"
           >
             {[
               { icon: MapPin, label: '15+ Neighborhoods', value: '15+' },
@@ -219,15 +220,15 @@ export function EnhancedHero() {
               <motion.div
                 key={stat.label}
                 whileHover={{ scale: 1.05, y: -5 }}
-                className="glass-card rounded-2xl px-6 py-4 hover-glow group cursor-pointer"
+                className="glass-card rounded-xl md:rounded-2xl px-3 py-3 md:px-6 md:py-4 hover-glow group cursor-pointer"
               >
-                <div className="flex items-center gap-3 text-white">
-                  <div className="w-12 h-12 glass rounded-full flex items-center justify-center group-hover:glow transition-all duration-300">
-                    <stat.icon className="w-6 h-6" />
+                <div className="flex items-center gap-2 md:gap-3 text-white">
+                  <div className="w-8 h-8 md:w-12 md:h-12 glass rounded-full flex items-center justify-center group-hover:glow transition-all duration-300">
+                    <stat.icon className="w-4 h-4 md:w-6 md:h-6" />
                   </div>
                   <div className="text-left">
-                    <div className="text-2xl font-bold">{stat.value}</div>
-                    <div className="text-sm text-white/80">{stat.label}</div>
+                    <div className="text-lg md:text-2xl font-bold">{stat.value}</div>
+                    <div className="text-xs md:text-sm text-white/80 leading-tight">{stat.label}</div>
                   </div>
                 </div>
               </motion.div>
@@ -239,19 +240,19 @@ export function EnhancedHero() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 1.2 }}
-            className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-12"
+            className="flex flex-col sm:flex-row gap-4 md:gap-6 justify-center items-center mb-8 md:mb-12 px-4"
           >
             <Link
               href="/explore"
-              className="group relative overflow-hidden"
+              className="group relative overflow-hidden w-full sm:w-auto"
             >
               <motion.div
-                whileHover={{ scale: 1.05 }}
+                whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                className="glass rounded-full px-8 py-4 text-white font-semibold text-lg hover-lift border border-white/30 relative z-10"
+                className="glass rounded-full px-6 py-3 md:px-8 md:py-4 text-white font-semibold text-base md:text-lg hover-lift border border-white/30 relative z-10 w-full sm:w-auto"
               >
-                <div className="flex items-center gap-3">
-                  <MapPin className="w-6 h-6" />
+                <div className="flex items-center justify-center gap-2 md:gap-3">
+                  <MapPin className="w-5 h-5 md:w-6 md:h-6" />
                   <span>Start Your Adventure</span>
                 </div>
                 <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 to-purple-500/20 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
@@ -260,23 +261,25 @@ export function EnhancedHero() {
 
             {currentContent.type === 'video' && (
               <motion.button
-                whileHover={{ scale: 1.05 }}
+                whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
                 onClick={handleVideoToggle}
-                className="glass-dark rounded-full px-8 py-4 text-white font-semibold text-lg hover-lift border border-white/20 flex items-center gap-3"
+                className="glass-dark rounded-full px-6 py-3 md:px-8 md:py-4 text-white font-semibold text-base md:text-lg hover-lift border border-white/20 flex items-center justify-center gap-2 md:gap-3 w-full sm:w-auto"
               >
-                <Play className={`w-6 h-6 transition-transform ${!isPlaying ? '' : 'rotate-0'}`} />
-                <span>{isPlaying ? 'Pause Video' : 'Play Video'}</span>
+                <Play className={`w-5 h-5 md:w-6 md:h-6 transition-transform ${!isPlaying ? '' : 'rotate-0'}`} />
+                <span className="hidden sm:inline">{isPlaying ? 'Pause Video' : 'Play Video'}</span>
+                <span className="sm:hidden">{isPlaying ? 'Pause' : 'Play'}</span>
               </motion.button>
             )}
 
             <motion.button
-              whileHover={{ scale: 1.05 }}
+              whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
-              className="glass-dark rounded-full px-8 py-4 text-white font-semibold text-lg hover-lift border border-white/20 flex items-center gap-3"
+              className="glass-dark rounded-full px-6 py-3 md:px-8 md:py-4 text-white font-semibold text-base md:text-lg hover-lift border border-white/20 flex items-center justify-center gap-2 md:gap-3 w-full sm:w-auto"
             >
-              <Camera className="w-6 h-6" />
-              <span>View Gallery</span>
+              <Camera className="w-5 h-5 md:w-6 md:h-6" />
+              <span className="hidden sm:inline">View Gallery</span>
+              <span className="sm:hidden">Gallery</span>
             </motion.button>
           </motion.div>
 
@@ -285,22 +288,22 @@ export function EnhancedHero() {
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, delay: 1.5 }}
-            className="max-w-md mx-auto"
+            className="max-w-lg mx-auto px-4"
           >
-            <div className="glass-card rounded-3xl p-8 hover-lift group cursor-pointer border border-white/20">
-              <div className="flex items-center gap-3 mb-4">
-                <Heart className="w-6 h-6 text-red-400" />
-                <span className="text-white/80 font-medium">Today's Featured Experience</span>
+            <div className="glass-card rounded-2xl md:rounded-3xl p-4 md:p-8 hover-lift group cursor-pointer border border-white/20">
+              <div className="flex items-center gap-2 md:gap-3 mb-3 md:mb-4">
+                <Heart className="w-4 h-4 md:w-6 md:h-6 text-red-400" />
+                <span className="text-white/80 font-medium text-sm md:text-base">Today's Featured Experience</span>
               </div>
-              <h3 className="text-white font-bold text-xl mb-3 group-hover:text-blue-300 transition-colors">
+              <h3 className="text-white font-bold text-lg md:text-xl mb-2 md:mb-3 group-hover:text-blue-300 transition-colors">
                 {heroContent[1].title}
               </h3>
-              <p className="text-white/70 text-sm leading-relaxed mb-4">
+              <p className="text-white/70 text-sm md:text-sm leading-relaxed mb-3 md:mb-4 line-clamp-3">
                 {heroContent[1].description}
               </p>
               <div className="flex items-center justify-between">
                 <span className="text-white/60 text-sm">Starting at $25</span>
-                <span className="text-blue-300 font-medium group-hover:text-white transition-colors">
+                <span className="text-blue-300 font-medium group-hover:text-white transition-colors text-sm">
                   Learn More →
                 </span>
               </div>
@@ -309,39 +312,25 @@ export function EnhancedHero() {
         </div>
       </motion.div>
 
-      {/* Slide Indicators */}
-      <div className="absolute bottom-24 left-1/2 transform -translate-x-1/2 flex gap-3 z-20">
-        {heroContent.map((_, index) => (
-          <button
-            key={index}
-            onClick={() => setCurrentSlide(index)}
-            className={`w-3 h-3 rounded-full transition-all duration-300 ${
-              currentSlide === index
-                ? 'bg-white scale-125 glow'
-                : 'bg-white/50 hover:bg-white/70'
-            }`}
-          />
-        ))}
-      </div>
 
       {/* Elegant Scroll Indicator */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 2, duration: 0.5 }}
-        className="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-white/70 z-20"
+        className="absolute bottom-4 md:bottom-8 left-1/2 transform -translate-x-1/2 text-white/70 z-20"
       >
         <motion.div
-          animate={{ y: [0, 12, 0] }}
+          animate={{ y: [0, 8, 0] }}
           transition={{ repeat: Infinity, duration: 2.5, ease: "easeInOut" }}
-          className="flex flex-col items-center gap-2"
+          className="flex flex-col items-center gap-1 md:gap-2"
         >
-          <span className="text-sm font-medium text-glow">Discover More</span>
-          <div className="w-6 h-10 border-2 border-white/30 rounded-full flex justify-center">
+          <span className="text-xs md:text-sm font-medium text-glow">Discover More</span>
+          <div className="w-5 h-8 md:w-6 md:h-10 border-2 border-white/30 rounded-full flex justify-center">
             <motion.div
-              animate={{ y: [0, 12, 0] }}
+              animate={{ y: [0, 8, 0] }}
               transition={{ repeat: Infinity, duration: 2.5, ease: "easeInOut" }}
-              className="w-1 h-3 bg-white/60 rounded-full mt-2"
+              className="w-0.5 h-2 md:w-1 md:h-3 bg-white/60 rounded-full mt-1 md:mt-2"
             />
           </div>
         </motion.div>

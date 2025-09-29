@@ -116,8 +116,8 @@ export default function BlogPage() {
         <div className="absolute inset-0 bg-gradient-to-br from-primary-600/90 to-primary-800/90" />
         <div className="container-wide relative z-10">
           <div className="text-center text-white">
-            <h1 className="text-4xl md:text-5xl font-bold mb-4">Walking Stories & Guides</h1>
-            <p className="text-xl text-white/90 max-w-2xl mx-auto">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 px-4">Walking Stories & Guides</h1>
+            <p className="text-lg sm:text-xl text-white/90 max-w-2xl mx-auto px-4">
               Tips, stories, and insights from San Diego's walking community
             </p>
           </div>
@@ -127,9 +127,9 @@ export default function BlogPage() {
       {/* Featured Post */}
       <section className="py-12">
         <div className="container-wide">
-          <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
+          <div className="bg-white rounded-xl sm:rounded-2xl shadow-xl overflow-hidden">
             <div className="lg:flex">
-              <div className="lg:w-3/5 relative h-80 lg:h-auto">
+              <div className="lg:w-3/5 relative h-64 sm:h-80 lg:h-auto">
                 <Image
                   src={featuredPost.image}
                   alt={featuredPost.title}
@@ -140,17 +140,17 @@ export default function BlogPage() {
                   Featured Story
                 </div>
               </div>
-              <div className="lg:w-2/5 p-8 lg:p-12">
-                <div className="flex items-center gap-4 mb-4 text-sm text-gray-600">
-                  <span className="bg-primary-100 text-primary-700 px-3 py-1 rounded-full font-medium">
+              <div className="lg:w-2/5 p-6 sm:p-8 lg:p-12">
+                <div className="flex flex-wrap items-center gap-3 sm:gap-4 mb-4 text-sm text-gray-600">
+                  <span className="bg-primary-100 text-primary-700 px-3 py-1 rounded-full font-medium whitespace-nowrap">
                     {featuredPost.category}
                   </span>
-                  <span>{featuredPost.readTime}</span>
+                  <span className="whitespace-nowrap">{featuredPost.readTime}</span>
                 </div>
-                <h2 className="text-3xl font-bold mb-4">{featuredPost.title}</h2>
-                <p className="text-gray-600 mb-6">{featuredPost.excerpt}</p>
+                <h2 className="text-2xl sm:text-3xl font-bold mb-4">{featuredPost.title}</h2>
+                <p className="text-gray-600 mb-6 text-sm sm:text-base">{featuredPost.excerpt}</p>
 
-                <div className="flex items-center justify-between mb-6">
+                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 gap-4">
                   <div className="flex items-center gap-3">
                     <Image
                       src={featuredPost.authorImage}
@@ -164,7 +164,7 @@ export default function BlogPage() {
                       <p className="text-sm text-gray-500">{featuredPost.date}</p>
                     </div>
                   </div>
-                  <div className="flex items-center gap-4 text-gray-500">
+                  <div className="flex items-center gap-3 sm:gap-4 text-gray-500">
                     <button className="flex items-center gap-1 hover:text-red-500 transition-colors">
                       <Heart className="w-5 h-5" />
                       <span className="text-sm">{featuredPost.likes}</span>
@@ -193,13 +193,13 @@ export default function BlogPage() {
       </section>
 
       {/* Categories Filter */}
-      <section className="py-8 bg-gray-50 sticky top-16 z-40 border-b">
+      <section className="py-6 sm:py-8 bg-gray-50 sticky top-16 z-40 border-b">
         <div className="container-wide">
-          <div className="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-hide">
+          <div className="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-hide px-1">
             {categories.map((category) => (
               <button
                 key={category.name}
-                className={`whitespace-nowrap px-4 py-2 rounded-full text-sm font-medium transition-colors ${
+                className={`whitespace-nowrap px-3 sm:px-4 py-2 rounded-full text-xs sm:text-sm font-medium transition-colors ${
                   category.active
                     ? 'bg-primary-600 text-white'
                     : 'bg-white text-gray-700 hover:bg-gray-100'
@@ -213,13 +213,13 @@ export default function BlogPage() {
       </section>
 
       {/* Blog Posts Grid */}
-      <section className="py-12">
+      <section className="py-8 sm:py-12">
         <div className="container-wide">
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
             {blogPosts.map((post) => (
               <article key={post.id} className="group">
                 <Link href={`/blog/${post.id}`} className="block">
-                  <div className="relative h-48 mb-4 rounded-xl overflow-hidden">
+                  <div className="relative h-44 sm:h-48 mb-4 rounded-xl overflow-hidden">
                     <Image
                       src={post.image}
                       alt={post.title}
@@ -239,10 +239,10 @@ export default function BlogPage() {
                     <span className="text-gray-500">{post.readTime}</span>
                   </div>
 
-                  <h3 className="text-xl font-bold mb-2 group-hover:text-primary-600 transition-colors">
+                  <h3 className="text-lg sm:text-xl font-bold mb-2 group-hover:text-primary-600 transition-colors leading-tight">
                     {post.title}
                   </h3>
-                  <p className="text-gray-600 mb-4 line-clamp-2">{post.excerpt}</p>
+                  <p className="text-gray-600 mb-4 line-clamp-2 text-sm sm:text-base">{post.excerpt}</p>
 
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2 text-sm text-gray-500">
@@ -269,21 +269,21 @@ export default function BlogPage() {
       </section>
 
       {/* Newsletter CTA */}
-      <section className="py-16 bg-gradient-to-br from-primary-600 to-primary-800">
+      <section className="py-12 sm:py-16 bg-gradient-to-br from-primary-600 to-primary-800">
         <div className="container-wide text-center">
-          <h2 className="text-3xl font-bold text-white mb-4">
+          <h2 className="text-2xl sm:text-3xl font-bold text-white mb-4 px-4">
             Get Walking Tips & Stories Weekly
           </h2>
-          <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
+          <p className="text-lg sm:text-xl text-white/90 mb-8 max-w-2xl mx-auto px-4">
             Join 5,000+ San Diego walkers getting the best routes, events, and local insights delivered to their inbox.
           </p>
-          <form className="max-w-md mx-auto flex gap-2">
+          <form className="max-w-md mx-auto flex flex-col sm:flex-row gap-2 px-4">
             <input
               type="email"
               placeholder="Enter your email"
               className="flex-1 px-4 py-3 rounded-lg text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-white"
             />
-            <button type="submit" className="btn-secondary">
+            <button type="submit" className="btn-secondary whitespace-nowrap">
               Subscribe
             </button>
           </form>

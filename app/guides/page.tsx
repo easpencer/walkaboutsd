@@ -192,8 +192,8 @@ export default function GuidesPage() {
               <BookOpen className="w-5 h-5" />
               <span className="font-medium">Free Downloadable Guides</span>
             </div>
-            <h1 className="text-4xl md:text-5xl font-bold mb-4">Walking Guides & Resources</h1>
-            <p className="text-xl text-white/90 max-w-2xl mx-auto">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 px-4">Walking Guides & Resources</h1>
+            <p className="text-lg sm:text-xl text-white/90 max-w-2xl mx-auto px-4">
               Everything you need to explore San Diego on foot. Download our free guides and start your adventure.
             </p>
           </div>
@@ -203,18 +203,18 @@ export default function GuidesPage() {
       {/* Quick Access */}
       <section className="py-12 bg-gray-50">
         <div className="container-wide">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
             {quickGuides.map((guide) => (
               <Link
                 key={guide.title}
                 href={guide.link}
-                className="bg-white rounded-xl p-6 text-center hover:shadow-lg transition-shadow group"
+                className="bg-white rounded-xl p-4 sm:p-6 text-center hover:shadow-lg transition-shadow group"
               >
-                <div className="text-4xl mb-3">{guide.icon}</div>
-                <h3 className="font-semibold text-gray-900 group-hover:text-primary-600 transition-colors mb-1">
+                <div className="text-3xl sm:text-4xl mb-2 sm:mb-3">{guide.icon}</div>
+                <h3 className="font-semibold text-gray-900 group-hover:text-primary-600 transition-colors mb-1 text-sm sm:text-base">
                   {guide.title}
                 </h3>
-                <p className="text-sm text-gray-600">{guide.description}</p>
+                <p className="text-xs sm:text-sm text-gray-600">{guide.description}</p>
               </Link>
             ))}
           </div>
@@ -224,18 +224,18 @@ export default function GuidesPage() {
       {/* Category Filter */}
       <section className="py-8 sticky top-16 z-40 bg-white border-b">
         <div className="container-wide">
-          <div className="flex items-center justify-between mb-4">
-            <h2 className="text-2xl font-bold">Browse Guides</h2>
-            <button className="flex items-center gap-2 px-4 py-2 border rounded-lg hover:bg-gray-50 transition-colors">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-4 gap-3">
+            <h2 className="text-xl sm:text-2xl font-bold">Browse Guides</h2>
+            <button className="flex items-center gap-2 px-3 sm:px-4 py-2 border rounded-lg hover:bg-gray-50 transition-colors text-sm">
               <Filter className="w-4 h-4" />
               <span>Filter</span>
             </button>
           </div>
-          <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
+          <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide px-1">
             {categories.map((category, index) => (
               <button
                 key={category}
-                className={`whitespace-nowrap px-4 py-2 rounded-full text-sm font-medium transition-colors ${
+                className={`whitespace-nowrap px-3 sm:px-4 py-2 rounded-full text-xs sm:text-sm font-medium transition-colors ${
                   index === 0
                     ? 'bg-primary-600 text-white'
                     : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
@@ -251,10 +251,10 @@ export default function GuidesPage() {
       {/* Guides Grid */}
       <section className="py-12">
         <div className="container-wide">
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
             {guides.map((guide) => (
-              <div key={guide.id} className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
-                <div className="relative h-48">
+              <div key={guide.id} className="bg-white rounded-xl sm:rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+                <div className="relative h-44 sm:h-48">
                   <Image
                     src={guide.image}
                     alt={guide.title}
@@ -275,29 +275,29 @@ export default function GuidesPage() {
                   </div>
                 </div>
 
-                <div className="p-6">
-                  <div className="flex items-center gap-3 mb-3 text-sm">
-                    <span className="bg-primary-100 text-primary-700 px-2 py-1 rounded font-medium">
+                <div className="p-4 sm:p-6">
+                  <div className="flex flex-wrap items-center gap-2 sm:gap-3 mb-3 text-xs sm:text-sm">
+                    <span className="bg-primary-100 text-primary-700 px-2 py-1 rounded font-medium whitespace-nowrap">
                       {guide.category}
                     </span>
-                    <span className="text-gray-500">{guide.difficulty}</span>
+                    <span className="text-gray-500 whitespace-nowrap">{guide.difficulty}</span>
                   </div>
 
-                  <h3 className="text-xl font-bold mb-2">{guide.title}</h3>
-                  <p className="text-gray-600 mb-4 text-sm">{guide.description}</p>
+                  <h3 className="text-lg sm:text-xl font-bold mb-2 leading-tight">{guide.title}</h3>
+                  <p className="text-gray-600 mb-4 text-xs sm:text-sm">{guide.description}</p>
 
-                  <div className="flex items-center gap-4 mb-4 text-sm text-gray-500">
+                  <div className="flex flex-wrap items-center gap-2 sm:gap-4 mb-4 text-xs sm:text-sm text-gray-500">
                     <span className="flex items-center gap-1">
                       <BookOpen className="w-4 h-4" />
-                      {guide.pages} pages
+                      <span className="whitespace-nowrap">{guide.pages} pages</span>
                     </span>
                     <span className="flex items-center gap-1">
                       <Download className="w-4 h-4" />
-                      {guide.downloads.toLocaleString()}
+                      <span className="whitespace-nowrap">{guide.downloads.toLocaleString()}</span>
                     </span>
                     <span className="flex items-center gap-1">
                       <Calendar className="w-4 h-4" />
-                      {guide.updated}
+                      <span className="whitespace-nowrap">{guide.updated}</span>
                     </span>
                   </div>
 
@@ -305,7 +305,7 @@ export default function GuidesPage() {
                     <p className="text-sm font-medium text-gray-700 mb-2">Includes:</p>
                     <ul className="space-y-1">
                       {guide.features.slice(0, 3).map((feature, index) => (
-                        <li key={index} className="flex items-start gap-2 text-sm text-gray-600">
+                        <li key={index} className="flex items-start gap-2 text-xs sm:text-sm text-gray-600">
                           <Check className="w-4 h-4 text-green-500 flex-shrink-0 mt-0.5" />
                           <span>{feature}</span>
                         </li>
@@ -319,11 +319,12 @@ export default function GuidesPage() {
                   </div>
 
                   <div className="flex gap-2">
-                    <button className="flex-1 btn-primary justify-center">
+                    <button className="flex-1 btn-primary justify-center text-sm">
                       <Download className="w-4 h-4" />
-                      Download Free
+                      <span className="hidden sm:inline">Download Free</span>
+                      <span className="sm:hidden">Download</span>
                     </button>
-                    <button className="p-3 border rounded-lg hover:bg-gray-50 transition-colors">
+                    <button className="p-2 sm:p-3 border rounded-lg hover:bg-gray-50 transition-colors">
                       <Share2 className="w-4 h-4 text-gray-600" />
                     </button>
                   </div>

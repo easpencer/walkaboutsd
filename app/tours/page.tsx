@@ -1,15 +1,9 @@
 'use client'
 
 import { useState } from 'react'
-import { Metadata } from 'next'
 import Image from 'next/image'
 import { Calendar, Clock, Users, Star, CheckCircle, Award, Shield } from 'lucide-react'
 import { BookingModal } from '../../components/BookingModal'
-
-export const metadata: Metadata = {
-  title: 'Guided Tours & Experiences | WalkaboutSD',
-  description: 'Book expert-led walking tours in San Diego. Small groups, local guides, and authentic experiences in La Jolla, Balboa Park, and more.',
-}
 
 const tours = [
   {

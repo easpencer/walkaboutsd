@@ -118,7 +118,7 @@ export default function ActivitiesPage() {
         <div
           className="absolute inset-0 bg-cover bg-center"
           style={{
-            backgroundImage: "url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1920&q=80')"
+            backgroundImage: "url('https://images.unsplash.com/photo-1530549387789-4c1017266635?w=1920&q=80')"
           }}
         />
         <div className="absolute inset-0 bg-gradient-to-br from-primary-600/80 to-primary-800/80" />

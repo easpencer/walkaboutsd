@@ -8,9 +8,9 @@ import Link from 'next/link'
 const heroContent = [
   {
     id: 'main',
-    type: 'image',
-    src: 'https://images.unsplash.com/photo-1520942702018-0862200e6873?w=1920&q=80',
-    poster: 'https://images.unsplash.com/photo-1520942702018-0862200e6873?w=1920&q=80',
+    type: 'video',
+    src: 'https://player.vimeo.com/external/434045526.sd.mp4?s=c27eecc69a27dbc4ff2b87d38afc35f1&profile_id=164&oauth2_token_id=57447761',
+    poster: 'https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=1920&q=80',
     title: 'Discover San Diego',
     subtitle: 'One Step at a Time',
     description: 'Experience the magic of America\'s Finest City through immersive walking adventures'
@@ -19,33 +19,41 @@ const heroContent = [
     id: 'sunset-cliffs',
     type: 'image',
     src: 'https://images.unsplash.com/photo-1528164344705-47542687000d?w=1920&q=80',
-    title: 'Sunset Cliffs Magic',
-    subtitle: 'Golden Hour Paradise',
-    description: 'Experience breathtaking sunsets and dramatic coastlines in Point Loma\'s crown jewel'
+    title: 'Sunset Cliffs Natural Park',
+    subtitle: 'Dramatic Coastal Bluffs',
+    description: 'Walk the rugged clifftops of Point Loma where surfers chase perfect waves below golden sandstone formations'
   },
   {
     id: 'la-jolla-cove',
     type: 'image',
-    src: 'https://images.unsplash.com/photo-1519452575417-564c1401ecc0?w=1920&q=80',
-    title: 'La Jolla Cove Adventures',
-    subtitle: 'Where Sea Lions Play',
-    description: 'Discover pristine beaches, tide pools, and California sea lions in their natural habitat'
+    src: 'https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=1920&q=80',
+    title: 'La Jolla Cove Marine Sanctuary',
+    subtitle: 'California Sea Lions & Snorkeling',
+    description: 'Meet playful sea lions, explore crystal-clear tide pools, and snorkel in this protected marine reserve'
   },
   {
     id: 'balboa-park',
     type: 'image',
-    src: 'https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?w=1920&q=80',
-    title: 'Balboa Park Discovery',
-    subtitle: 'Cultural Heart of the City',
-    description: 'Explore world-class museums, Spanish architecture, and lush gardens in 1,200 acres of wonder'
+    src: 'https://images.unsplash.com/photo-1605640840605-14ac1855827b?w=1920&q=80',
+    title: 'Balboa Park Cultural District',
+    subtitle: '17 Museums & Spanish Colonial Architecture',
+    description: 'America\'s largest urban cultural park featuring world-renowned museums, botanical gardens, and the famous San Diego Zoo'
   },
   {
-    id: 'downtown-harbor',
+    id: 'gaslamp-quarter',
     type: 'image',
-    src: 'https://images.unsplash.com/photo-1533929736458-ca588d08c8be?w=1920&q=80',
-    title: 'San Diego Harbor Walk',
-    subtitle: 'Waterfront Wonder',
-    description: 'Stroll along the sparkling harbor with stunning city skyline views and maritime history'
+    src: 'https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?w=1920&q=80',
+    title: 'Historic Gaslamp Quarter',
+    subtitle: '16 Blocks of Victorian Heritage',
+    description: 'Explore preserved 19th-century architecture, rooftop bars, craft breweries, and award-winning restaurants in downtown\'s entertainment heart'
+  },
+  {
+    id: 'coronado-beach',
+    type: 'image',
+    src: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1920&q=80',
+    title: 'Coronado Beach Promenade',
+    subtitle: 'Hotel del Coronado & Golden Sand',
+    description: 'Walk along one of America\'s best beaches past the iconic Victorian Hotel del Coronado, where Marilyn Monroe filmed "Some Like It Hot"'
   }
 ]
 

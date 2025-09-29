@@ -57,7 +57,7 @@ export default function ExperiencesPage() {
         <div
           className="absolute inset-0 bg-cover bg-center"
           style={{
-            backgroundImage: "url('https://images.unsplash.com/photo-1519452575417-564c1401ecc0?w=1920&q=80')"
+            backgroundImage: "url('https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=1920&q=80')"
           }}
         />
         <div className="absolute inset-0 bg-gradient-to-br from-black/70 via-black/50 to-black/70" />

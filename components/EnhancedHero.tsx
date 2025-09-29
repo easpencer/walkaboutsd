@@ -2,34 +2,50 @@
 
 import { useState, useEffect, useRef } from 'react'
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion'
-import { ChevronDown, Play, MapPin, Clock, Users, Sparkles, Camera, Heart } from 'lucide-react'
+import { Play, MapPin, Clock, Users, Sparkles, Camera, Heart } from 'lucide-react'
 import Link from 'next/link'
 
 const heroContent = [
   {
     id: 'main',
-    type: 'image',
-    src: 'https://images.unsplash.com/photo-1519452575417-564c1401ecc0?w=1920&q=80',
-    poster: 'https://images.unsplash.com/photo-1519452575417-564c1401ecc0?w=1920&q=80',
+    type: 'video',
+    src: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
+    poster: 'https://images.unsplash.com/photo-1520942702018-0862200e6873?w=1920&q=80',
     title: 'Discover San Diego',
     subtitle: 'One Step at a Time',
     description: 'Experience the magic of America\'s Finest City through immersive walking adventures'
   },
   {
-    id: 'la-jolla',
+    id: 'sunset-cliffs',
     type: 'image',
-    src: 'https://images.unsplash.com/photo-1582825770113-3ccbf80ed807?w=1920&q=80',
-    title: 'La Jolla Coastal Walk',
-    subtitle: 'Where Sea Lions Play',
-    description: 'Stunning coastline meets marine wildlife in this unforgettable coastal journey'
+    src: 'https://images.unsplash.com/photo-1520942702018-0862200e6873?w=1920&q=80',
+    title: 'Sunset Cliffs Magic',
+    subtitle: 'Golden Hour Paradise',
+    description: 'Experience breathtaking sunsets and dramatic coastlines in Point Loma\'s crown jewel'
   },
   {
-    id: 'balboa',
+    id: 'la-jolla-cove',
+    type: 'image',
+    src: 'https://images.unsplash.com/photo-1582825770113-3ccbf80ed807?w=1920&q=80',
+    title: 'La Jolla Cove Adventures',
+    subtitle: 'Where Sea Lions Play',
+    description: 'Discover pristine beaches, tide pools, and California sea lions in their natural habitat'
+  },
+  {
+    id: 'balboa-park',
     type: 'image',
     src: 'https://images.unsplash.com/photo-1591737772640-15070b9f1d33?w=1920&q=80',
     title: 'Balboa Park Discovery',
     subtitle: 'Cultural Heart of the City',
-    description: 'Museums, gardens, and Spanish architecture in America\'s largest urban cultural park'
+    description: 'Explore world-class museums, Spanish architecture, and lush gardens in 1,200 acres of wonder'
+  },
+  {
+    id: 'gaslamp-quarter',
+    type: 'image',
+    src: 'https://images.unsplash.com/photo-1533929736458-ca588d08c8be?w=1920&q=80',
+    title: 'Historic Gaslamp Quarter',
+    subtitle: 'Victorian Elegance Meets Modern Energy',
+    description: 'Walk through 16 blocks of preserved Victorian architecture, vibrant nightlife, and culinary excellence'
   }
 ]
 

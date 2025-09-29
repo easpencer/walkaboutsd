@@ -1,7 +1,7 @@
 import { Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
-import { MapPin, Clock, Calendar, User, Download, Share2, BookOpen, Award, Star, Check, ChevronRight, Filter } from 'lucide-react'
+import { Calendar, Download, Share2, BookOpen, Award, Star, Check, Filter } from 'lucide-react'
 
 export const metadata: Metadata = {
   title: 'Walking Guides & Resources | WalkaboutSD',

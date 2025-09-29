@@ -42,20 +42,29 @@ export default function AdminLoginPage() {
     setIsLoading(true)
     setError('')
 
-    // Simulate Instagram OAuth flow
-    // In production, this would redirect to Instagram OAuth
+    // ONLY Danielle Susan Berkely (WalkAboutSD owner) can login via Instagram
+    // In production, this would verify Instagram OAuth against whitelist
+    const authorizedUsername = 'daniellesusan' // Owner of @walkaboutsd
+
+    // Simulate Instagram OAuth verification
     setTimeout(() => {
-      // Simulate successful Instagram login for @walkaboutsd account
-      sessionStorage.setItem('adminAuth', 'true')
-      sessionStorage.setItem('adminUser', JSON.stringify({
-        username: 'walkaboutsd',
-        name: 'WalkAbout SD',
-        role: 'admin',
-        loginMethod: 'instagram',
-        followers: '2.4K'
-      }))
-      router.push('/admin')
-    }, 2000)
+      const simulatedUser = prompt('Demo: Enter Instagram username (use "daniellesusan" for owner access)')
+
+      if (simulatedUser?.toLowerCase() === authorizedUsername) {
+        sessionStorage.setItem('adminAuth', 'true')
+        sessionStorage.setItem('adminUser', JSON.stringify({
+          username: 'walkaboutsd',
+          name: 'Danielle Susan Berkely',
+          role: 'owner',
+          loginMethod: 'instagram',
+          verified: true
+        }))
+        router.push('/admin')
+      } else {
+        setError('Access Denied: Only the WalkAboutSD owner (Danielle Susan Berkely) can access admin via Instagram.')
+        setIsLoading(false)
+      }
+    }, 1000)
   }
 
   return (
@@ -84,7 +93,7 @@ export default function AdminLoginPage() {
             className="w-full bg-gradient-to-r from-purple-500 to-pink-500 text-white font-semibold py-4 rounded-xl hover:from-purple-600 hover:to-pink-600 transition-all duration-200 flex items-center justify-center gap-3 mb-6 disabled:opacity-50"
           >
             <Instagram className="w-6 h-6" />
-            {isLoading ? 'Connecting...' : 'Login with Instagram (@walkaboutsd)'}
+            {isLoading ? 'Connecting...' : 'Owner Login (Danielle S. Berkely)'}
           </button>
 
           {/* Divider */}
@@ -164,7 +173,7 @@ export default function AdminLoginPage() {
               <Shield className="w-5 h-5 text-blue-600 mt-0.5" />
               <div className="text-sm text-blue-800">
                 <p className="font-medium mb-1">Secure Access</p>
-                <p>This admin panel is protected with secure authentication. Only authorized @walkaboutsd team members can access platform management features.</p>
+                <p>This admin panel is restricted. Only Danielle Susan Berkely (owner) and super administrators can access the management dashboard.</p>
               </div>
             </div>
           </div>

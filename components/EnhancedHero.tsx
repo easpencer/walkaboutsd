@@ -160,7 +160,7 @@ export function EnhancedHero() {
       {/* Content */}
       <motion.div
         style={{ opacity }}
-        className="relative z-10 h-full flex items-center justify-center text-center px-4 pt-24 pb-16 md:pt-32"
+        className="relative z-10 h-full flex items-center justify-center text-center px-3 pt-32 pb-16 sm:pt-28 md:pt-32"
       >
         <div className="max-w-6xl mx-auto w-full">
           {/* Floating Badge */}
@@ -168,11 +168,11 @@ export function EnhancedHero() {
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.3 }}
-            className="mb-6 md:mb-8"
+            className="mb-3 sm:mb-4 md:mb-6"
           >
-            <div className="inline-flex items-center gap-2 glass rounded-full px-4 py-2 md:px-6 md:py-3 text-white border border-white/20 hover-glow text-sm md:text-base">
-              <Sparkles className="w-4 h-4 md:w-5 md:h-5 text-yellow-300" />
-              <span className="font-medium">America's Finest City Awaits</span>
+            <div className="inline-flex items-center gap-1 glass rounded-full px-2 py-1 sm:px-3 sm:py-1.5 md:px-5 md:py-2.5 text-white border border-white/20 hover-glow text-xs sm:text-sm md:text-base">
+              <Sparkles className="w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5 text-yellow-300 flex-shrink-0" />
+              <span className="font-medium">America's Finest City</span>
               <div className="w-1.5 h-1.5 md:w-2 md:h-2 bg-green-400 rounded-full animate-pulse-glow" />
             </div>
           </motion.div>
@@ -185,9 +185,9 @@ export function EnhancedHero() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -30 }}
               transition={{ duration: 0.8, delay: 0.1 }}
-              className="mb-6 md:mb-8"
+              className="mb-4 sm:mb-5 md:mb-6"
             >
-              <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-bold text-white mb-4 md:mb-6 tracking-tight font-serif leading-tight">
+              <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-white mb-2 sm:mb-3 md:mb-4 tracking-tight font-serif leading-tight">
                 <span className="text-glow drop-shadow-2xl">{currentContent.title}</span>
                 <span className="block text-transparent bg-clip-text bg-gradient-to-r from-blue-300 via-purple-300 to-pink-300 mt-1 md:mt-2 drop-shadow-lg">
                   {currentContent.subtitle}
@@ -198,7 +198,7 @@ export function EnhancedHero() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.5 }}
-                className="text-base sm:text-lg md:text-xl lg:text-2xl text-white/95 max-w-4xl mx-auto font-light leading-relaxed px-4 drop-shadow-lg"
+                className="text-sm sm:text-base md:text-lg lg:text-xl text-white/95 max-w-3xl mx-auto font-light leading-relaxed drop-shadow-lg"
               >
                 {currentContent.description}
               </motion.p>
@@ -210,7 +210,7 @@ export function EnhancedHero() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.8 }}
-            className="flex flex-wrap justify-center gap-3 md:gap-6 mb-8 md:mb-12 px-4"
+            className="flex flex-wrap justify-center gap-2 sm:gap-3 md:gap-4 mb-6 sm:mb-8 md:mb-10 px-2"
           >
             {[
               { icon: MapPin, label: '15+ Neighborhoods', value: '15+' },
@@ -220,15 +220,15 @@ export function EnhancedHero() {
               <motion.div
                 key={stat.label}
                 whileHover={{ scale: 1.05, y: -5 }}
-                className="glass-card rounded-xl md:rounded-2xl px-3 py-3 md:px-6 md:py-4 hover-glow group cursor-pointer"
+                className="glass-card rounded-lg sm:rounded-xl md:rounded-2xl px-2 py-2 sm:px-3 sm:py-3 md:px-5 md:py-4 hover-glow group cursor-pointer"
               >
                 <div className="flex items-center gap-2 md:gap-3 text-white">
-                  <div className="w-8 h-8 md:w-12 md:h-12 glass rounded-full flex items-center justify-center group-hover:glow transition-all duration-300">
-                    <stat.icon className="w-4 h-4 md:w-6 md:h-6" />
+                  <div className="w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 glass rounded-full flex items-center justify-center group-hover:glow transition-all duration-300">
+                    <stat.icon className="w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5" />
                   </div>
                   <div className="text-left">
-                    <div className="text-lg md:text-2xl font-bold">{stat.value}</div>
-                    <div className="text-xs md:text-sm text-white/80 leading-tight">{stat.label}</div>
+                    <div className="text-sm sm:text-lg md:text-xl font-bold">{stat.value}</div>
+                    <div className="text-xs sm:text-xs md:text-sm text-white/80 leading-tight">{stat.label}</div>
                   </div>
                 </div>
               </motion.div>

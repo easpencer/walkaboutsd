@@ -178,8 +178,15 @@ export default function GuidesPage() {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-primary-600 to-primary-800 py-16">
-        <div className="container-wide">
+      <section className="relative py-16 overflow-hidden">
+        <div
+          className="absolute inset-0 bg-cover bg-center"
+          style={{
+            backgroundImage: "url('https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?w=1920&q=80')"
+          }}
+        />
+        <div className="absolute inset-0 bg-gradient-to-br from-primary-600/90 to-primary-800/90" />
+        <div className="container-wide relative z-10">
           <div className="text-center text-white">
             <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm rounded-full px-4 py-2 mb-6">
               <BookOpen className="w-5 h-5" />

@@ -114,8 +114,14 @@ export default function ActivitiesPage() {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="relative h-[40vh] min-h-[400px] bg-gradient-to-br from-primary-600 to-primary-800 overflow-hidden">
-        <div className="absolute inset-0 bg-black/20" />
+      <section className="relative h-[40vh] min-h-[400px] overflow-hidden">
+        <div
+          className="absolute inset-0 bg-cover bg-center"
+          style={{
+            backgroundImage: "url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1920&q=80')"
+          }}
+        />
+        <div className="absolute inset-0 bg-gradient-to-br from-primary-600/80 to-primary-800/80" />
         <div className="relative z-10 h-full flex items-center">
           <div className="container-wide">
             <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">

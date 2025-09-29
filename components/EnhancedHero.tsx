@@ -8,8 +8,8 @@ import Link from 'next/link'
 const heroContent = [
   {
     id: 'main',
-    type: 'video',
-    src: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
+    type: 'image',
+    src: 'https://images.unsplash.com/photo-1520942702018-0862200e6873?w=1920&q=80',
     poster: 'https://images.unsplash.com/photo-1520942702018-0862200e6873?w=1920&q=80',
     title: 'Discover San Diego',
     subtitle: 'One Step at a Time',
@@ -18,7 +18,7 @@ const heroContent = [
   {
     id: 'sunset-cliffs',
     type: 'image',
-    src: 'https://images.unsplash.com/photo-1520942702018-0862200e6873?w=1920&q=80',
+    src: 'https://images.unsplash.com/photo-1528164344705-47542687000d?w=1920&q=80',
     title: 'Sunset Cliffs Magic',
     subtitle: 'Golden Hour Paradise',
     description: 'Experience breathtaking sunsets and dramatic coastlines in Point Loma\'s crown jewel'
@@ -26,7 +26,7 @@ const heroContent = [
   {
     id: 'la-jolla-cove',
     type: 'image',
-    src: 'https://images.unsplash.com/photo-1582825770113-3ccbf80ed807?w=1920&q=80',
+    src: 'https://images.unsplash.com/photo-1519452575417-564c1401ecc0?w=1920&q=80',
     title: 'La Jolla Cove Adventures',
     subtitle: 'Where Sea Lions Play',
     description: 'Discover pristine beaches, tide pools, and California sea lions in their natural habitat'
@@ -34,18 +34,18 @@ const heroContent = [
   {
     id: 'balboa-park',
     type: 'image',
-    src: 'https://images.unsplash.com/photo-1591737772640-15070b9f1d33?w=1920&q=80',
+    src: 'https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?w=1920&q=80',
     title: 'Balboa Park Discovery',
     subtitle: 'Cultural Heart of the City',
     description: 'Explore world-class museums, Spanish architecture, and lush gardens in 1,200 acres of wonder'
   },
   {
-    id: 'gaslamp-quarter',
+    id: 'downtown-harbor',
     type: 'image',
     src: 'https://images.unsplash.com/photo-1533929736458-ca588d08c8be?w=1920&q=80',
-    title: 'Historic Gaslamp Quarter',
-    subtitle: 'Victorian Elegance Meets Modern Energy',
-    description: 'Walk through 16 blocks of preserved Victorian architecture, vibrant nightlife, and culinary excellence'
+    title: 'San Diego Harbor Walk',
+    subtitle: 'Waterfront Wonder',
+    description: 'Stroll along the sparkling harbor with stunning city skyline views and maritime history'
   }
 ]
 
@@ -62,7 +62,7 @@ export function EnhancedHero() {
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % heroContent.length)
-    }, 8000)
+    }, 6000)
 
     return () => clearInterval(timer)
   }, [])
@@ -288,7 +288,7 @@ export function EnhancedHero() {
                 {heroContent[1].title}
               </h3>
               <p className="text-white/70 text-sm leading-relaxed mb-4">
-                A perfect introduction to San Diego's coastal beauty and marine wildlife encounters.
+                {heroContent[1].description}
               </p>
               <div className="flex items-center justify-between">
                 <span className="text-white/60 text-sm">Starting at $25</span>

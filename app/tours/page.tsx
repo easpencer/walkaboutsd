@@ -112,8 +112,8 @@ export default function ToursPage() {
       {/* Hero Section */}
       <section className="relative h-[50vh] min-h-[500px] overflow-hidden">
         <Image
-          src="https://images.unsplash.com/photo-1533929736458-ca588d08c8be?w=1920&q=80"
-          alt="San Diego Tours"
+          src="https://images.unsplash.com/photo-1520942702018-0862200e6873?w=1920&q=80"
+          alt="San Diego Sunset Cliffs Walking Tours"
           fill
           className="object-cover"
         />

@@ -4,14 +4,15 @@
 nixPkgs = ["nodejs_18", "npm-9_x"]
 
 [phases.install]
-cmds = ["npm install --legacy-peer-deps"]
+cmds = ["npm install --legacy-peer-deps --production=false"]
 
 [phases.build]
 cmds = ["npm run build"]
 
 [start]
-cmd = "npm run start"
+cmd = "npm start"
 
 [variables]
 NODE_ENV = "production"
 NEXT_TELEMETRY_DISABLED = "1"
+PORT = "3000"

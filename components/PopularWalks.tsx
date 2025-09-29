@@ -173,7 +173,7 @@ export function PopularWalks() {
                 transition={{ duration: 0.6 }}
                 className={`group ${index === 0 ? 'lg:col-span-2 xl:col-span-1' : ''}`}
               >
-                <Link href={`/walks/${walk.id}`}>
+                <Link href={`/explore`}>
                   <div className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 border border-gray-100">
                     {/* Image */}
                     <div className="relative h-64 overflow-hidden">
@@ -274,7 +274,7 @@ export function PopularWalks() {
               transition={{ duration: 0.6, delay: 0.3 }}
               className="group"
             >
-              <Link href={`/walks/${walk.id}`}>
+              <Link href={`/explore`}>
                 <div className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border border-gray-100">
                   {/* Compact Image */}
                   <div className="relative h-48 overflow-hidden">
@@ -346,7 +346,7 @@ export function PopularWalks() {
           className="text-center mt-12"
         >
           <Link
-            href="/walks"
+            href="/explore"
             className="btn-primary text-lg py-4 px-8"
           >
             View All Walks

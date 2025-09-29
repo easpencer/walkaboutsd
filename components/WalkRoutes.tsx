@@ -48,7 +48,7 @@ export function WalkRoutes({ neighborhoodId }: WalkRoutesProps) {
               transition={{ duration: 0.6, delay: index * 0.1 }}
               className="group"
             >
-              <Link href={`/walks/${walk.id}`}>
+              <Link href={`/explore`}>
                 <div className="glass-card rounded-3xl overflow-hidden hover-lift glow-soft border border-white/20 h-full">
                   {/* Image Section */}
                   <div className="relative h-64 overflow-hidden">
@@ -170,7 +170,7 @@ export function WalkRoutes({ neighborhoodId }: WalkRoutesProps) {
           transition={{ duration: 0.8, delay: 0.4 }}
           className="text-center mt-12"
         >
-          <Link href="/walks">
+          <Link href="/explore">
             <motion.div
               whileHover={{ scale: 1.05, y: -5 }}
               className="inline-flex items-center gap-3 glass rounded-full px-8 py-4 text-lg font-semibold text-gray-700 hover-glow border border-white/30 group"

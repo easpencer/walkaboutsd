@@ -182,7 +182,7 @@ export default function GuidesPage() {
         <div
           className="absolute inset-0 bg-cover bg-center"
           style={{
-            backgroundImage: "url('https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?w=1920&q=80')"
+            backgroundImage: "url('https://images.unsplash.com/photo-1605640840605-14ac1855827b?w=1920&q=80')"
           }}
         />
         <div className="absolute inset-0 bg-gradient-to-br from-primary-600/90 to-primary-800/90" />

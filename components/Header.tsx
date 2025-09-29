@@ -40,6 +40,7 @@ const navigation = [
       { name: 'Local Secrets', href: '/guides/secrets' }
     ]
   },
+  { name: 'Experiences', href: '/experiences' },
   { name: 'Tours', href: '/tours' },
   { name: 'Blog', href: '/blog' }
 ]
@@ -143,7 +144,13 @@ export function Header() {
           </div>
 
           {/* CTA Button */}
-          <div className="hidden lg:block">
+          <div className="hidden lg:flex items-center space-x-4">
+            <Link
+              href="/admin"
+              className="text-sm font-medium text-gray-600 hover:text-primary-600 transition-colors"
+            >
+              Admin
+            </Link>
             <Link
               href="/tours"
               className="btn-primary"

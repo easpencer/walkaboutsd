@@ -112,11 +112,11 @@ export const experiences: Experience[] = [
     },
     difficulty: 'Easy',
     groupSize: { min: 1, max: 8 },
-    image: 'https://images.unsplash.com/photo-1519452575417-564c1401ecc0?w=800&q=80',
+    image: 'https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800&q=80',
     gallery: [
-      'https://images.unsplash.com/photo-1519452575417-564c1401ecc0?w=800&q=80',
-      'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=800&q=80',
-      'https://images.unsplash.com/photo-1520942702018-0862200e6873?w=800&q=80'
+      'https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800&q=80',
+      'https://images.unsplash.com/photo-1600298881974-6be191ceeda1?w=800&q=80',
+      'https://images.unsplash.com/photo-1528164344705-47542687000d?w=800&q=80'
     ],
     includes: [
       'Professional local guide',

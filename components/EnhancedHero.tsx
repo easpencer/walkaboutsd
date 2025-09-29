@@ -8,9 +8,9 @@ import Link from 'next/link'
 const heroContent = [
   {
     id: 'main',
-    type: 'video',
-    src: 'https://player.vimeo.com/external/434045526.sd.mp4?s=c27eecc69a27dbc4ff2b87d38afc35f1&profile_id=164&oauth2_token_id=57447761',
-    poster: 'https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=1920&q=80',
+    type: 'image',
+    src: 'https://images.unsplash.com/photo-1583362917266-a0bc07de49f6?w=1920&q=80',
+    poster: 'https://images.unsplash.com/photo-1583362917266-a0bc07de49f6?w=1920&q=80',
     title: 'Discover San Diego',
     subtitle: 'One Step at a Time',
     description: 'Experience the magic of America\'s Finest City through immersive walking adventures'
@@ -159,7 +159,7 @@ export function EnhancedHero() {
       {/* Content */}
       <motion.div
         style={{ opacity }}
-        className="relative z-10 h-full flex items-center justify-center text-center px-4"
+        className="relative z-10 h-full flex items-center justify-center text-center px-4 pt-20"
       >
         <div className="max-w-5xl mx-auto">
           {/* Floating Badge */}

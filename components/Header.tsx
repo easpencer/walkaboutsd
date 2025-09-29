@@ -3,8 +3,9 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { Menu, X, MapPin, ChevronDown } from 'lucide-react'
+import { Menu, X, ChevronDown } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { Logo } from './Logo'
 
 const navigation = [
   {
@@ -79,15 +80,12 @@ export function Header() {
       <nav className="container-wide">
         <div className="flex items-center justify-between h-16 lg:h-20">
           {/* Logo */}
-          <Link href="/" className="flex items-center space-x-2 group">
-            <div className="w-8 h-8 bg-primary-600 rounded-full flex items-center justify-center group-hover:bg-primary-700 transition-colors">
-              <MapPin className="w-5 h-5 text-white" />
-            </div>
-            <span className={`text-xl font-bold transition-colors ${
-              scrolled ? 'text-gray-900' : 'text-white'
-            }`}>
-              WalkaboutSD
-            </span>
+          <Link href="/" className="group">
+            <Logo
+              size="md"
+              variant={scrolled ? 'dark' : 'light'}
+              className="group-hover:scale-105 transition-transform duration-200"
+            />
           </Link>
 
           {/* Desktop Navigation */}

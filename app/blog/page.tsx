@@ -110,7 +110,7 @@ export default function BlogPage() {
         <div
           className="absolute inset-0 bg-cover bg-center"
           style={{
-            backgroundImage: "url('https://images.unsplash.com/photo-1571894620470-8a1e7a14301c?w=1920&q=80')"
+            backgroundImage: "url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1920&q=80')"
           }}
         />
         <div className="absolute inset-0 bg-gradient-to-br from-primary-600/90 to-primary-800/90" />

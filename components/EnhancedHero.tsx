@@ -9,8 +9,8 @@ const heroContent = [
   {
     id: 'main',
     type: 'image',
-    src: 'https://images.unsplash.com/photo-1583362917266-a0bc07de49f6?w=1920&q=80',
-    poster: 'https://images.unsplash.com/photo-1583362917266-a0bc07de49f6?w=1920&q=80',
+    src: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1920&q=80',
+    poster: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1920&q=80',
     title: 'Discover San Diego',
     subtitle: 'One Step at a Time',
     description: 'Experience the magic of America\'s Finest City through immersive walking adventures'
@@ -18,7 +18,7 @@ const heroContent = [
   {
     id: 'sunset-cliffs',
     type: 'image',
-    src: 'https://images.unsplash.com/photo-1528164344705-47542687000d?w=1920&q=80',
+    src: 'https://images.unsplash.com/photo-1581833971358-2c8b550f87b3?w=1920&q=80',
     title: 'Sunset Cliffs Natural Park',
     subtitle: 'Dramatic Coastal Bluffs',
     description: 'Walk the rugged clifftops of Point Loma where surfers chase perfect waves below golden sandstone formations'
@@ -26,7 +26,7 @@ const heroContent = [
   {
     id: 'la-jolla-cove',
     type: 'image',
-    src: 'https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=1920&q=80',
+    src: 'https://images.unsplash.com/photo-1539650116574-75c0c6d73c7e?w=1920&q=80',
     title: 'La Jolla Cove Marine Sanctuary',
     subtitle: 'California Sea Lions & Snorkeling',
     description: 'Meet playful sea lions, explore crystal-clear tide pools, and snorkel in this protected marine reserve'
@@ -34,7 +34,7 @@ const heroContent = [
   {
     id: 'balboa-park',
     type: 'image',
-    src: 'https://images.unsplash.com/photo-1605640840605-14ac1855827b?w=1920&q=80',
+    src: 'https://images.unsplash.com/photo-1580785788792-0e2e3b5c9c0d?w=1920&q=80',
     title: 'Balboa Park Cultural District',
     subtitle: '17 Museums & Spanish Colonial Architecture',
     description: 'America\'s largest urban cultural park featuring world-renowned museums, botanical gardens, and the famous San Diego Zoo'
@@ -42,7 +42,7 @@ const heroContent = [
   {
     id: 'gaslamp-quarter',
     type: 'image',
-    src: 'https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?w=1920&q=80',
+    src: 'https://images.unsplash.com/photo-1551966775-a4ddc8df052b?w=1920&q=80',
     title: 'Historic Gaslamp Quarter',
     subtitle: '16 Blocks of Victorian Heritage',
     description: 'Explore preserved 19th-century architecture, rooftop bars, craft breweries, and award-winning restaurants in downtown\'s entertainment heart'
@@ -50,7 +50,7 @@ const heroContent = [
   {
     id: 'coronado-beach',
     type: 'image',
-    src: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1920&q=80',
+    src: 'https://images.unsplash.com/photo-1473116763249-2faaef81ccda?w=1920&q=80',
     title: 'Coronado Beach Promenade',
     subtitle: 'Hotel del Coronado & Golden Sand',
     description: 'Walk along one of America\'s best beaches past the iconic Victorian Hotel del Coronado, where Marilyn Monroe filmed "Some Like It Hot"'

@@ -1,6 +1,7 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { useRouter } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
   BarChart3,
@@ -47,14 +48,71 @@ const stats = [
 
 export function AdminDashboard() {
   const [activeTab, setActiveTab] = useState('overview')
+  const [isAuthenticated, setIsAuthenticated] = useState(false)
+  const [adminUser, setAdminUser] = useState<any>(null)
+  const router = useRouter()
+
+  useEffect(() => {
+    const checkAuth = () => {
+      const auth = sessionStorage.getItem('adminAuth')
+      const user = sessionStorage.getItem('adminUser')
+
+      if (auth === 'true' && user) {
+        setIsAuthenticated(true)
+        setAdminUser(JSON.parse(user))
+      } else {
+        router.push('/admin/login')
+      }
+    }
+
+    checkAuth()
+  }, [router])
+
+  const handleLogout = () => {
+    sessionStorage.removeItem('adminAuth')
+    sessionStorage.removeItem('adminUser')
+    router.push('/admin/login')
+  }
+
+  if (!isAuthenticated) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600 mx-auto mb-4"></div>
+          <p className="text-gray-600">Verifying authentication...</p>
+        </div>
+      </div>
+    )
+  }
 
   return (
     <div className="min-h-screen bg-gray-50 pt-20">
       <div className="container-wide">
         {/* Header */}
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">Admin Dashboard</h1>
-          <p className="text-gray-600">Manage your WalkaboutSD business</p>
+        <div className="flex items-center justify-between mb-8">
+          <div>
+            <h1 className="text-3xl font-bold text-gray-900 mb-2">Admin Dashboard</h1>
+            <p className="text-gray-600">Manage your WalkaboutSD business</p>
+          </div>
+          <div className="flex items-center gap-4">
+            <div className="text-right">
+              <p className="font-medium text-gray-900">
+                {adminUser?.name || adminUser?.username || 'Admin'}
+              </p>
+              <p className="text-sm text-gray-600">
+                {adminUser?.loginMethod === 'instagram' ? '@walkaboutsd' : adminUser?.email}
+              </p>
+            </div>
+            <div className="w-10 h-10 bg-primary-600 rounded-full flex items-center justify-center text-white font-semibold">
+              {adminUser?.name?.[0] || adminUser?.username?.[0] || 'A'}
+            </div>
+            <button
+              onClick={handleLogout}
+              className="text-sm text-gray-600 hover:text-red-600 transition-colors"
+            >
+              Logout
+            </button>
+          </div>
         </div>
 
         {/* Navigation Tabs */}

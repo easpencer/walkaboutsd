@@ -1,142 +1,171 @@
 'use client'
 
-import { MapContainer, TileLayer, Marker, Popup, Polyline, useMap } from 'react-leaflet'
+import React, { useEffect, useState } from 'react'
+import { MapContainer, TileLayer, Marker, Popup, Polyline } from 'react-leaflet'
+import { Camera, Play, Star } from 'lucide-react'
 import L from 'leaflet'
 import 'leaflet/dist/leaflet.css'
-import { useEffect } from 'react'
 
 // Fix for default markers in production
-delete (L.Icon.Default.prototype as any)._getIconUrl
-L.Icon.Default.mergeOptions({
-  iconRetinaUrl: '/leaflet/marker-icon-2x.png',
-  iconUrl: '/leaflet/marker-icon.png',
-  shadowUrl: '/leaflet/marker-shadow.png',
-})
-
-interface WaypointData {
-  id: string
-  title: string
-  description: string
-  coordinates: [number, number]
-  type: 'landmark' | 'viewpoint' | 'restaurant' | 'parking'
-  image?: string
+if (typeof window !== 'undefined') {
+  delete (L.Icon.Default.prototype as any)._getIconUrl
+  L.Icon.Default.mergeOptions({
+    iconRetinaUrl: '/leaflet/marker-icon-2x.png',
+    iconUrl: '/leaflet/marker-icon.png',
+    shadowUrl: '/leaflet/marker-shadow.png',
+  })
 }
 
 interface MapComponentProps {
-  walkRoute?: {
-    waypoints: WaypointData[]
-  }
-  selectedSpot?: any
-  center?: [number, number]
-  zoom?: number
+  center: [number, number]
+  zoom: number
+  activeStyle: string
+  mapStyles: Array<{
+    id: string
+    name: string
+    url: string
+    attribution: string
+  }>
+  demoRoute: number[][]
+  waypoints: Array<{
+    id: string
+    title: string
+    description: string
+    type: string
+    coordinates?: [number, number]
+  }>
+  activeWaypoint: number | null
+  onWaypointClick: (index: number) => void
+  getWaypointIcon: (type: string) => string
 }
 
-function MapController({ center, zoom }: { center?: [number, number], zoom?: number }) {
-  const map = useMap()
+export function MapComponent({
+  center,
+  zoom,
+  activeStyle,
+  mapStyles,
+  demoRoute,
+  waypoints,
+  activeWaypoint,
+  onWaypointClick,
+  getWaypointIcon
+}: MapComponentProps) {
+  const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
-    if (center) {
-      map.setView(center, zoom || 14)
-    }
-  }, [center, zoom, map])
+    setMounted(true)
+  }, [])
 
-  return null
-}
+  const createCustomIcon = (type: string, isActive: boolean = false) => {
+    if (typeof window === 'undefined' || !mounted) return undefined
 
-export function MapComponent({ walkRoute, selectedSpot, center = [32.8328, -117.2713], zoom = 14 }: MapComponentProps) {
-  const routeCoordinates = walkRoute?.waypoints.map(wp => wp.coordinates) || []
-
-  const createIcon = (type: string) => {
-    const colors: Record<string, string> = {
-      landmark: '#10b981',
-      viewpoint: '#3b82f6',
-      restaurant: '#f59e0b',
-      parking: '#6b7280'
-    }
+    const iconHtml = `
+      <div class="custom-marker ${isActive ? 'active' : ''}" style="
+        width: 40px;
+        height: 40px;
+        background: ${isActive ? '#3b82f6' : '#6b7280'};
+        border: 3px solid white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        transform: ${isActive ? 'scale(1.2)' : 'scale(1)'};
+        transition: all 0.3s ease;
+      ">
+        <span style="color: white; font-weight: bold; font-size: 14px;">
+          ${getWaypointIcon(type)}
+        </span>
+      </div>
+    `
 
     return L.divIcon({
-      className: 'custom-marker',
-      html: `
-        <div style="
-          background-color: ${colors[type] || '#6b7280'};
-          width: 32px;
-          height: 32px;
-          border-radius: 50%;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          border: 3px solid white;
-          box-shadow: 0 2px 6px rgba(0,0,0,0.3);
-        ">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="white" stroke="white" stroke-width="2">
-            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-            <circle cx="12" cy="10" r="3"></circle>
-          </svg>
-        </div>
-      `,
-      iconSize: [32, 32],
-      iconAnchor: [16, 32],
-      popupAnchor: [0, -32]
+      html: iconHtml,
+      className: 'custom-div-icon',
+      iconSize: [40, 40],
+      iconAnchor: [20, 20],
+      popupAnchor: [0, -20]
     })
   }
+
+  if (!mounted) {
+    return null
+  }
+
+  const currentStyle = mapStyles.find(s => s.id === activeStyle) || mapStyles[0]
 
   return (
     <MapContainer
       center={center}
       zoom={zoom}
-      className="h-full w-full rounded-2xl"
-      zoomControl={true}
-      style={{ minHeight: '500px' }}
+      style={{ height: '100%', width: '100%' }}
+      className="z-0"
+      key={`map-${activeStyle}-${Date.now()}`} // Force unique key to prevent container issues
     >
-      <MapController center={selectedSpot?.coordinates || center} zoom={selectedSpot ? 16 : zoom} />
-
       <TileLayer
-        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        url={currentStyle.url}
+        attribution={currentStyle.attribution}
       />
 
-      {walkRoute && routeCoordinates.length > 1 && (
-        <Polyline
-          pathOptions={{ color: '#3b82f6', weight: 4, opacity: 0.7 }}
-          positions={routeCoordinates}
-        />
-      )}
+      {/* Walking Route Polyline */}
+      <Polyline
+        positions={demoRoute as any}
+        pathOptions={{
+          color: '#3b82f6',
+          weight: 4,
+          opacity: 0.8,
+          dashArray: '10, 5'
+        }}
+      />
 
-      {walkRoute?.waypoints.map((waypoint) => (
-        <Marker
-          key={waypoint.id}
-          position={waypoint.coordinates}
-          icon={createIcon(waypoint.type)}
-        >
-          <Popup>
-            <div className="p-2">
-              <h3 className="font-semibold text-gray-900">{waypoint.title}</h3>
-              <p className="text-sm text-gray-600 mt-1">{waypoint.description}</p>
-              {waypoint.image && (
-                <img
-                  src={waypoint.image}
-                  alt={waypoint.title}
-                  className="mt-2 rounded w-full h-24 object-cover"
-                />
-              )}
-            </div>
-          </Popup>
-        </Marker>
-      ))}
+      {/* Waypoint Markers */}
+      {waypoints.map((waypoint, index) => {
+        if (!waypoint.coordinates) return null
 
-      {selectedSpot && (
-        <Marker
-          position={selectedSpot.coordinates}
-          icon={createIcon(selectedSpot.type || 'landmark')}
-        >
-          <Popup>
-            <div className="p-2">
-              <h3 className="font-semibold text-gray-900">{selectedSpot.name}</h3>
-              <p className="text-sm text-gray-600 mt-1">{selectedSpot.description}</p>
-            </div>
-          </Popup>
-        </Marker>
-      )}
+        const icon = createCustomIcon(waypoint.type, activeWaypoint === index)
+
+        return (
+          <Marker
+            key={waypoint.id}
+            position={waypoint.coordinates}
+            icon={icon}
+            eventHandlers={{
+              click: () => onWaypointClick(index),
+            }}
+          >
+            <Popup className="custom-popup">
+              <div className="p-4 min-w-[250px]">
+                <div className="flex items-center gap-3 mb-3">
+                  <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
+                    <span className="text-xl">{getWaypointIcon(waypoint.type)}</span>
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-gray-900">{waypoint.title}</h3>
+                    <div className="flex items-center gap-1 text-yellow-500">
+                      <Star className="w-3 h-3 fill-current" />
+                      <Star className="w-3 h-3 fill-current" />
+                      <Star className="w-3 h-3 fill-current" />
+                      <Star className="w-3 h-3 fill-current" />
+                      <Star className="w-3 h-3 fill-current" />
+                    </div>
+                  </div>
+                </div>
+                <p className="text-gray-600 text-sm mb-4">{waypoint.description}</p>
+                <div className="flex gap-2">
+                  <button className="bg-blue-600 text-white text-xs py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors flex items-center gap-1">
+                    <Camera className="w-3 h-3" />
+                    Photos
+                  </button>
+                  <button className="bg-gray-200 text-gray-700 text-xs py-2 px-4 rounded-lg hover:bg-gray-300 transition-colors flex items-center gap-1">
+                    <Play className="w-3 h-3" />
+                    Audio
+                  </button>
+                </div>
+              </div>
+            </Popup>
+          </Marker>
+        )
+      })}
     </MapContainer>
   )
 }

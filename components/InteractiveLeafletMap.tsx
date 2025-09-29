@@ -5,30 +5,20 @@ import { motion } from 'framer-motion'
 import dynamic from 'next/dynamic'
 import { MapPin, Navigation, Layers, Camera, Play, Star } from 'lucide-react'
 
-// Dynamic import to avoid SSR issues
-const MapContainer = dynamic(
-  () => import('react-leaflet').then((mod) => mod.MapContainer),
-  { ssr: false }
-)
-
-const TileLayer = dynamic(
-  () => import('react-leaflet').then((mod) => mod.TileLayer),
-  { ssr: false }
-)
-
-const Marker = dynamic(
-  () => import('react-leaflet').then((mod) => mod.Marker),
-  { ssr: false }
-)
-
-const Popup = dynamic(
-  () => import('react-leaflet').then((mod) => mod.Popup),
-  { ssr: false }
-)
-
-const Polyline = dynamic(
-  () => import('react-leaflet').then((mod) => mod.Polyline),
-  { ssr: false }
+// Dynamic import to avoid SSR issues - wrapped properly
+const DynamicMap = dynamic(
+  () => import('./MapComponent').then((mod) => mod.MapComponent),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="h-full w-full bg-gray-100 rounded-2xl flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin w-8 h-8 border-4 border-primary-600 border-t-transparent rounded-full mx-auto mb-4"></div>
+          <p className="text-gray-600">Loading interactive map...</p>
+        </div>
+      </div>
+    )
+  }
 )
 
 interface MapProps {
@@ -88,45 +78,8 @@ export function InteractiveLeafletMap({
   zoom = 13,
   className = ''
 }: MapProps) {
-  const [mapInstance, setMapInstance] = useState<any | null>(null)
   const [activeStyle, setActiveStyle] = useState('streets')
   const [activeWaypoint, setActiveWaypoint] = useState<number | null>(null)
-  const [isLoaded, setIsLoaded] = useState(false)
-
-  // Custom icons
-  const createCustomIcon = (type: string, isActive: boolean = false) => {
-    if (typeof window === 'undefined') return null
-
-    const L = require('leaflet')
-
-    const iconHtml = `
-      <div class="custom-marker ${isActive ? 'active' : ''}" style="
-        width: 40px;
-        height: 40px;
-        background: ${isActive ? '#3b82f6' : '#6b7280'};
-        border: 3px solid white;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-        transform: ${isActive ? 'scale(1.2)' : 'scale(1)'};
-        transition: all 0.3s ease;
-      ">
-        <span style="color: white; font-weight: bold; font-size: 14px;">
-          ${getWaypointIcon(type)}
-        </span>
-      </div>
-    `
-
-    return L.divIcon({
-      html: iconHtml,
-      className: 'custom-div-icon',
-      iconSize: [40, 40],
-      iconAnchor: [20, 20],
-      popupAnchor: [0, -20]
-    })
-  }
 
   const getWaypointIcon = (type: string) => {
     switch (type) {
@@ -138,21 +91,6 @@ export function InteractiveLeafletMap({
       case 'art': return '🎨'
       default: return '📍'
     }
-  }
-
-  useEffect(() => {
-    setIsLoaded(true)
-  }, [])
-
-  if (!isLoaded) {
-    return (
-      <div className={`${className} bg-gray-100 rounded-2xl flex items-center justify-center`}>
-        <div className="text-center">
-          <div className="animate-spin w-8 h-8 border-4 border-primary-600 border-t-transparent rounded-full mx-auto mb-4"></div>
-          <p className="text-gray-600">Loading interactive map...</p>
-        </div>
-      </div>
-    )
   }
 
   const waypoints = walkRoute?.waypoints || [
@@ -267,76 +205,17 @@ export function InteractiveLeafletMap({
       )}
 
       {/* Map */}
-      <MapContainer
+      <DynamicMap
         center={center}
         zoom={zoom}
-        style={{ height: '100%', width: '100%' }}
-        className="z-0"
-        ref={setMapInstance}
-      >
-        <TileLayer
-          url={mapStyles.find(s => s.id === activeStyle)?.url || mapStyles[0].url}
-          attribution={mapStyles.find(s => s.id === activeStyle)?.attribution || mapStyles[0].attribution}
-        />
-
-        {/* Walking Route Polyline */}
-        <Polyline
-          positions={demoRoute}
-          pathOptions={{
-            color: '#3b82f6',
-            weight: 4,
-            opacity: 0.8,
-            dashArray: '10, 5'
-          }}
-        />
-
-        {/* Waypoint Markers */}
-        {waypoints.map((waypoint, index) => {
-          if (!waypoint.coordinates) return null
-
-          return (
-            <Marker
-              key={waypoint.id}
-              position={waypoint.coordinates}
-              icon={createCustomIcon(waypoint.type, activeWaypoint === index)}
-              eventHandlers={{
-                click: () => setActiveWaypoint(index),
-              }}
-            >
-              <Popup className="custom-popup">
-                <div className="p-4 min-w-[250px]">
-                  <div className="flex items-center gap-3 mb-3">
-                    <div className="w-10 h-10 bg-primary-100 rounded-full flex items-center justify-center">
-                      <span className="text-xl">{getWaypointIcon(waypoint.type)}</span>
-                    </div>
-                    <div>
-                      <h3 className="font-bold text-gray-900">{waypoint.title}</h3>
-                      <div className="flex items-center gap-1 text-yellow-500">
-                        <Star className="w-3 h-3 fill-current" />
-                        <Star className="w-3 h-3 fill-current" />
-                        <Star className="w-3 h-3 fill-current" />
-                        <Star className="w-3 h-3 fill-current" />
-                        <Star className="w-3 h-3 fill-current" />
-                      </div>
-                    </div>
-                  </div>
-                  <p className="text-gray-600 text-sm mb-4">{waypoint.description}</p>
-                  <div className="flex gap-2">
-                    <button className="btn-primary text-xs py-2 px-4">
-                      <Camera className="w-3 h-3" />
-                      Photos
-                    </button>
-                    <button className="btn-secondary text-xs py-2 px-4">
-                      <Play className="w-3 h-3" />
-                      Audio
-                    </button>
-                  </div>
-                </div>
-              </Popup>
-            </Marker>
-          )
-        })}
-      </MapContainer>
+        activeStyle={activeStyle}
+        mapStyles={mapStyles}
+        demoRoute={demoRoute}
+        waypoints={waypoints}
+        activeWaypoint={activeWaypoint}
+        onWaypointClick={setActiveWaypoint}
+        getWaypointIcon={getWaypointIcon}
+      />
 
       {/* Map Legend */}
       <motion.div

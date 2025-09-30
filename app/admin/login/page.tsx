@@ -20,19 +20,31 @@ export default function AdminLoginPage() {
     setIsLoading(true)
     setError('')
 
-    // Simulate authentication
-    if (email === 'admin@walkaboutsd.com' && password === 'WalkSD2024!') {
-      // Set session storage for demo purposes
-      sessionStorage.setItem('adminAuth', 'true')
-      sessionStorage.setItem('adminUser', JSON.stringify({
-        email: 'admin@walkaboutsd.com',
-        name: 'Super Admin',
-        role: 'superadmin',
-        loginMethod: 'credentials'
-      }))
-      router.push('/admin')
-    } else {
-      setError('Invalid credentials. Please try again.')
+    try {
+      const response = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email,
+          password,
+          loginMethod: 'credentials'
+        }),
+      })
+
+      const data = await response.json()
+
+      if (data.success) {
+        // Also set session storage for backward compatibility
+        sessionStorage.setItem('adminAuth', 'true')
+        sessionStorage.setItem('adminUser', JSON.stringify(data.user))
+        router.push('/dashboard')
+      } else {
+        setError('Invalid credentials. Please try again.')
+      }
+    } catch (error) {
+      setError('An error occurred. Please try again.')
     }
 
     setIsLoading(false)
@@ -47,19 +59,36 @@ export default function AdminLoginPage() {
     const authorizedUsername = 'daniellesusan' // Owner of @walkaboutsd
 
     // Simulate Instagram OAuth verification
-    setTimeout(() => {
+    setTimeout(async () => {
       const simulatedUser = prompt('Demo: Enter Instagram username (use "daniellesusan" for owner access)')
 
       if (simulatedUser?.toLowerCase() === authorizedUsername) {
-        sessionStorage.setItem('adminAuth', 'true')
-        sessionStorage.setItem('adminUser', JSON.stringify({
-          username: 'walkaboutsd',
-          name: 'Danielle Susan Berkely',
-          role: 'owner',
-          loginMethod: 'instagram',
-          verified: true
-        }))
-        router.push('/admin')
+        try {
+          const response = await fetch('/api/auth/login', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              username: simulatedUser,
+              loginMethod: 'instagram'
+            }),
+          })
+
+          const data = await response.json()
+
+          if (data.success) {
+            sessionStorage.setItem('adminAuth', 'true')
+            sessionStorage.setItem('adminUser', JSON.stringify(data.user))
+            router.push('/dashboard')
+          } else {
+            setError('Access Denied: Only the WalkAboutSD owner (Danielle Susan Berkely) can access admin via Instagram.')
+            setIsLoading(false)
+          }
+        } catch (error) {
+          setError('An error occurred. Please try again.')
+          setIsLoading(false)
+        }
       } else {
         setError('Access Denied: Only the WalkAboutSD owner (Danielle Susan Berkely) can access admin via Instagram.')
         setIsLoading(false)

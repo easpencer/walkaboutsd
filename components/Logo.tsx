@@ -30,20 +30,20 @@ export function Logo({
 
   const textColor = variant === 'light' ? 'text-white' : 'text-gray-900'
 
+  const logoSrc = variant === 'light' ? '/walkinggirlwhite.png' : '/walkinggirlblue.png'
+
   return (
     <div className={`flex items-center gap-3 ${className}`}>
       {/* WalkAboutSD Logo */}
       <div className={`${sizeClasses[size]} relative`}>
-        {/* Using the actual logo file */}
-        <div className={`relative ${sizeClasses[size]} ${variant === 'light' ? 'brightness-0 invert' : ''}`}>
-          <Image
-            src="/images/tropical-stroll-logo.png"
-            alt="WalkAboutSD"
-            fill
-            className="object-contain"
-            priority
-          />
-        </div>
+        <Image
+          src={logoSrc}
+          alt="WalkAboutSD"
+          fill
+          sizes="(max-width: 768px) 100px, 200px"
+          className="object-contain"
+          priority
+        />
       </div>
 
       {showText && (

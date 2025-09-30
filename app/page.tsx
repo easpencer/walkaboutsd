@@ -2,14 +2,16 @@
 
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Instagram, ArrowRight, Sparkles } from 'lucide-react'
+import { Instagram, ArrowRight } from 'lucide-react'
 import Link from 'next/link'
 import { Logo } from '@/components/Logo'
 
 const backgroundImages = [
   'https://images.unsplash.com/photo-1539650116574-75c0c6d73c7e?w=1920&q=80', // La Jolla Cove
+  'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=1920&q=80', // Sunset over ocean
   'https://images.unsplash.com/photo-1581833971358-2c8b550f87b3?w=1920&q=80', // Sunset Cliffs
-  'https://images.unsplash.com/photo-1580785788792-0e2e3b5c9c0d?w=1920&q=80', // Balboa Park
+  'https://images.unsplash.com/photo-1606924962241-d924675d3894?w=1920&q=80', // Coastal views
+  'https://images.unsplash.com/photo-1609850048142-73e01df7b2d4?w=1920&q=80', // San Diego skyline
 ]
 
 export default function ComingSoonPage() {
@@ -21,121 +23,119 @@ export default function ComingSoonPage() {
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentBg((prev) => (prev + 1) % backgroundImages.length)
-    }, 5000)
+    }, 6000)
     return () => clearInterval(timer)
   }, [])
 
   return (
-    <div className="relative h-screen overflow-hidden">
-      {/* Full Page Background Image */}
+    <div className="relative h-screen overflow-hidden bg-black">
+      {/* Full Page Background Image with Ken Burns effect */}
       <AnimatePresence mode="wait">
         <motion.div
           key={currentBg}
-          initial={{ opacity: 0, scale: 1.1 }}
+          initial={{ opacity: 0, scale: 1.2 }}
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 1.5 }}
+          transition={{ duration: 2, ease: "easeInOut" }}
           className="absolute inset-0"
         >
-          <div
-            className="absolute inset-0 bg-cover bg-center"
-            style={{ backgroundImage: `url('${backgroundImages[currentBg]}')` }}
-          />
-          {/* Elegant overlay */}
-          <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/50 to-black/70" />
+          <motion.div
+            animate={{ scale: [1, 1.1, 1] }}
+            transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+            className="absolute inset-0"
+          >
+            <div
+              className="absolute inset-0 bg-cover bg-center"
+              style={{ backgroundImage: `url('${backgroundImages[currentBg]}')` }}
+            />
+          </motion.div>
+          {/* Sophisticated gradient overlay */}
+          <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/40 to-black/60" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
         </motion.div>
       </AnimatePresence>
 
-      {/* Floating particles effect */}
-      <div className="absolute inset-0 pointer-events-none">
-        {[...Array(5)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute w-1 h-1 bg-white/30 rounded-full"
-            style={{
-              left: `${20 + i * 15}%`,
-              top: `${30 + (i % 2) * 20}%`
-            }}
-            animate={{
-              y: [-30, 30, -30],
-              opacity: [0.2, 0.6, 0.2]
-            }}
-            transition={{
-              duration: 8 + i * 2,
-              repeat: Infinity,
-              ease: "easeInOut"
-            }}
-          />
-        ))}
-      </div>
-
       {/* Main Content */}
-      <div className="relative z-10 h-full flex flex-col items-center justify-center text-center px-4">
-        {/* Logo */}
+      <div className="relative z-10 h-full flex flex-col items-center justify-center px-4">
+        {/* Logo - smaller and more subtle */}
         <motion.div
-          initial={{ opacity: 0, y: -30 }}
+          initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1 }}
-          className="mb-12"
+          transition={{ duration: 1.5, delay: 0.5 }}
+          className="mb-16"
         >
-          <Logo size="xl" variant="light" />
+          <Logo size="sm" variant="light" showText={false} />
         </motion.div>
 
-        {/* Title */}
+        {/* Elegant Title */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.3 }}
-          className="mb-8 max-w-3xl"
-        >
-          <h1 className="text-5xl md:text-7xl font-serif font-light text-white mb-4 tracking-wide">
-            <span className="text-glow">Something Beautiful</span>
-            <br />
-            <span className="text-3xl md:text-4xl opacity-90">is coming</span>
-          </h1>
-        </motion.div>
-
-        {/* Minimal tagline */}
-        <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 0.6 }}
-          className="text-lg md:text-xl text-white/80 mb-12 font-light tracking-wider"
+          transition={{ duration: 2, delay: 1 }}
+          className="text-center max-w-4xl"
         >
-          San Diego awaits
-        </motion.p>
+          <h1 className="text-6xl md:text-8xl lg:text-9xl font-serif font-thin text-white mb-6 tracking-wider">
+            <motion.span
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1.5, delay: 1.2 }}
+              className="block"
+            >
+              WALKABOUT
+            </motion.span>
+            <motion.span
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1.5, delay: 1.4 }}
+              className="block text-4xl md:text-5xl lg:text-6xl font-light opacity-90"
+            >
+              SAN DIEGO
+            </motion.span>
+          </h1>
 
-        {/* CTA Buttons */}
+          <motion.div
+            initial={{ width: 0 }}
+            animate={{ width: "200px" }}
+            transition={{ duration: 1.5, delay: 1.8 }}
+            className="h-[1px] bg-white/50 mx-auto mb-8"
+          />
+
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1.5, delay: 2 }}
+            className="text-xl md:text-2xl text-white/70 font-extralight tracking-[0.3em] uppercase"
+          >
+            Coming Soon
+          </motion.p>
+        </motion.div>
+
+        {/* Minimal CTA */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.9 }}
-          className="flex flex-col sm:flex-row gap-4"
+          transition={{ duration: 1.5, delay: 2.5 }}
+          className="mt-20"
         >
           {!showForm ? (
-            <>
-              <button
-                onClick={() => setShowForm(true)}
-                className="group px-8 py-3 bg-white/10 backdrop-blur-md text-white border border-white/30 rounded-full hover:bg-white/20 transition-all duration-300"
-              >
-                <span className="flex items-center gap-2">
-                  Request Early Access
-                  <Sparkles className="w-4 h-4 group-hover:rotate-12 transition-transform" />
-                </span>
-              </button>
-
-              <a
-                href="https://instagram.com/walkaboutsd"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="px-8 py-3 bg-white/5 backdrop-blur-md text-white/80 border border-white/20 rounded-full hover:bg-white/10 transition-all duration-300 flex items-center gap-2"
-              >
-                <Instagram className="w-5 h-5" />
-                Follow Journey
-              </a>
-            </>
+            <motion.button
+              onClick={() => setShowForm(true)}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="relative group"
+            >
+              <div className="absolute inset-0 bg-white/10 backdrop-blur-sm rounded-full" />
+              <div className="relative px-12 py-4 text-white font-light tracking-wider uppercase text-sm">
+                Be the First
+              </div>
+              <motion.div
+                className="absolute inset-0 rounded-full border border-white/30"
+                animate={{ scale: [1, 1.1, 1] }}
+                transition={{ duration: 2, repeat: Infinity }}
+              />
+            </motion.button>
           ) : (
-            <AnimatePresence>
+            <AnimatePresence mode="wait">
               {!subscribed ? (
                 <motion.form
                   initial={{ opacity: 0, scale: 0.9 }}
@@ -147,49 +147,65 @@ export default function ComingSoonPage() {
                     setTimeout(() => {
                       setShowForm(false)
                       setSubscribed(false)
+                      setEmail('')
                     }, 3000)
                   }}
-                  className="flex gap-2"
+                  className="flex flex-col sm:flex-row gap-3"
                 >
                   <input
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    placeholder="Your email"
-                    className="px-6 py-3 bg-white/10 backdrop-blur-md text-white placeholder-white/50 border border-white/30 rounded-full focus:outline-none focus:bg-white/20 transition-colors"
+                    placeholder="your@email.com"
+                    className="px-8 py-4 bg-white/5 backdrop-blur-md text-white placeholder-white/40 border border-white/20 rounded-full focus:outline-none focus:bg-white/10 focus:border-white/40 transition-all text-center font-light"
                     required
+                    autoFocus
                   />
                   <button
                     type="submit"
-                    className="px-8 py-3 bg-white/20 backdrop-blur-md text-white border border-white/30 rounded-full hover:bg-white/30 transition-colors"
+                    className="px-8 py-4 bg-white/10 backdrop-blur-md text-white border border-white/30 rounded-full hover:bg-white/20 transition-all font-light tracking-wider uppercase text-sm"
                   >
-                    Join
+                    Notify Me
                   </button>
                 </motion.form>
               ) : (
                 <motion.div
                   initial={{ opacity: 0, scale: 0.9 }}
                   animate={{ opacity: 1, scale: 1 }}
-                  className="px-8 py-3 bg-white/20 backdrop-blur-md text-white border border-green-400/50 rounded-full"
+                  className="px-12 py-4 text-white/90 font-light tracking-wider text-center"
                 >
-                  ✨ You're on the list
+                  Welcome to the Journey
                 </motion.div>
               )}
             </AnimatePresence>
           )}
         </motion.div>
 
-        {/* Admin Access - Very Subtle */}
+        {/* Instagram - bottom left, very subtle */}
+        <motion.a
+          href="https://instagram.com/walkaboutsd"
+          target="_blank"
+          rel="noopener noreferrer"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 0.5 }}
+          whileHover={{ opacity: 1 }}
+          transition={{ duration: 1, delay: 3 }}
+          className="absolute bottom-8 left-8 text-white/50 hover:text-white transition-colors"
+        >
+          <Instagram className="w-5 h-5" />
+        </motion.a>
+
+        {/* Admin Access - bottom right, extremely subtle */}
         <motion.div
           initial={{ opacity: 0 }}
-          animate={{ opacity: 0.3 }}
-          whileHover={{ opacity: 0.6 }}
-          transition={{ duration: 1, delay: 2 }}
+          animate={{ opacity: 0.2 }}
+          whileHover={{ opacity: 0.5 }}
+          transition={{ duration: 1, delay: 3 }}
           className="absolute bottom-8 right-8"
         >
           <Link
             href="/admin/login"
-            className="text-white/30 hover:text-white/60 text-xs transition-colors"
+            className="text-white/20 hover:text-white/40 transition-colors"
           >
             <ArrowRight className="w-4 h-4" />
           </Link>

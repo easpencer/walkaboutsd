@@ -21,12 +21,13 @@ export async function POST(request: Request) {
         }
       }
     } else if (loginMethod === 'instagram') {
-      // Only Danielle Susan Berkely can login via Instagram
-      if (username === 'daniellesusan') {
+      // Only Danielle Berkely can login via Instagram
+      if (username === 'walkaboutsd') {
         authenticated = true
         userData = {
           username: 'walkaboutsd',
-          name: 'Danielle Susan Berkely',
+          name: 'Danielle Berkely',
+          email: 'DSBerkley@gmail.com',
           role: 'owner',
           loginMethod: 'instagram',
           verified: true

@@ -54,13 +54,13 @@ export default function AdminLoginPage() {
     setIsLoading(true)
     setError('')
 
-    // ONLY Danielle Susan Berkely (WalkAboutSD owner) can login via Instagram
+    // ONLY Danielle Berkely (WalkAboutSD owner) can login via Instagram
     // In production, this would verify Instagram OAuth against whitelist
-    const authorizedUsername = 'daniellesusan' // Owner of @walkaboutsd
+    const authorizedUsername = 'walkaboutsd' // Owner's Instagram handle
 
     // Simulate Instagram OAuth verification
     setTimeout(async () => {
-      const simulatedUser = prompt('Demo: Enter Instagram username (use "daniellesusan" for owner access)')
+      const simulatedUser = prompt('Demo: Enter Instagram username (use "walkaboutsd" for owner access)')
 
       if (simulatedUser?.toLowerCase() === authorizedUsername) {
         try {
@@ -82,7 +82,7 @@ export default function AdminLoginPage() {
             sessionStorage.setItem('adminUser', JSON.stringify(data.user))
             router.push('/dashboard')
           } else {
-            setError('Access Denied: Only the WalkAboutSD owner (Danielle Susan Berkely) can access admin via Instagram.')
+            setError('Access Denied: Only the WalkAboutSD owner (Danielle Berkely) can access admin via Instagram.')
             setIsLoading(false)
           }
         } catch (error) {
@@ -122,7 +122,7 @@ export default function AdminLoginPage() {
             className="w-full bg-gradient-to-r from-purple-500 to-pink-500 text-white font-semibold py-4 rounded-xl hover:from-purple-600 hover:to-pink-600 transition-all duration-200 flex items-center justify-center gap-3 mb-6 disabled:opacity-50"
           >
             <Instagram className="w-6 h-6" />
-            {isLoading ? 'Connecting...' : 'Owner Login (Danielle S. Berkely)'}
+            {isLoading ? 'Connecting...' : 'Owner Login (Danielle Berkely)'}
           </button>
 
           {/* Divider */}
@@ -187,14 +187,6 @@ export default function AdminLoginPage() {
             </button>
           </form>
 
-          {/* Demo Credentials */}
-          <div className="mt-6 p-4 bg-gray-50 rounded-lg">
-            <h3 className="font-medium text-gray-900 mb-2">Demo Credentials:</h3>
-            <div className="text-sm text-gray-600 space-y-1">
-              <p><strong>Email:</strong> admin@walkaboutsd.com</p>
-              <p><strong>Password:</strong> WalkSD2024!</p>
-            </div>
-          </div>
 
           {/* Security Note */}
           <div className="mt-6 p-4 bg-blue-50 rounded-lg">
@@ -202,7 +194,7 @@ export default function AdminLoginPage() {
               <Shield className="w-5 h-5 text-blue-600 mt-0.5" />
               <div className="text-sm text-blue-800">
                 <p className="font-medium mb-1">Secure Access</p>
-                <p>This admin panel is restricted. Only Danielle Susan Berkely (owner) and super administrators can access the management dashboard.</p>
+                <p>This admin panel is restricted. Only authorized administrators can access the management dashboard.</p>
               </div>
             </div>
           </div>

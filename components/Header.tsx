@@ -64,12 +64,19 @@ export function Header() {
 
   useEffect(() => {
     // Check if user is logged in and get their role
+    // Re-check on every pathname change so header updates after login
     const adminUser = sessionStorage.getItem('adminUser')
     if (adminUser) {
-      const user = JSON.parse(adminUser)
-      setUserRole(user.role)
+      try {
+        const user = JSON.parse(adminUser)
+        setUserRole(user.role)
+      } catch (e) {
+        setUserRole(null)
+      }
+    } else {
+      setUserRole(null)
     }
-  }, [])
+  }, [pathname])
 
   useEffect(() => {
     setIsOpen(false)
@@ -156,7 +163,11 @@ export function Header() {
             {(userRole === 'superadmin' || userRole === 'owner') && (
               <Link
                 href="/dashboard"
-                className="flex items-center gap-2 px-3 py-2 text-sm font-medium text-gray-600 hover:text-primary-600 transition-colors rounded-md hover:bg-gray-100"
+                className={`flex items-center gap-2 px-3 py-2 text-sm font-medium transition-colors rounded-md ${
+                  scrolled
+                    ? 'text-gray-700 hover:text-primary-600 hover:bg-gray-100'
+                    : 'text-white hover:text-primary-200 hover:bg-white/10'
+                }`}
                 title="Admin Dashboard"
               >
                 <Settings className="w-4 h-4" />

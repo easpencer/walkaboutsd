@@ -57,14 +57,14 @@ export default function ComingSoonPage() {
 
       {/* Main Content */}
       <div className="relative z-10 h-full flex flex-col items-center justify-center px-4">
-        {/* Logo - smaller and more subtle */}
+        {/* Logo - elegant and prominent */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1.5, delay: 0.5 }}
-          className="mb-16"
+          className="mb-12"
         >
-          <Logo size="sm" variant="light" showText={false} />
+          <Logo size="lg" variant="light" showText={false} />
         </motion.div>
 
         {/* Elegant Title */}

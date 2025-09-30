@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { Menu, X, ChevronDown } from 'lucide-react'
+import { Menu, X, ChevronDown, Settings } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Logo } from './Logo'
 
@@ -50,6 +50,7 @@ export function Header() {
   const [isOpen, setIsOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null)
+  const [userRole, setUserRole] = useState<string | null>(null)
   const pathname = usePathname()
 
   useEffect(() => {
@@ -59,6 +60,15 @@ export function Header() {
 
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
+  useEffect(() => {
+    // Check if user is logged in and get their role
+    const adminUser = sessionStorage.getItem('adminUser')
+    if (adminUser) {
+      const user = JSON.parse(adminUser)
+      setUserRole(user.role)
+    }
   }, [])
 
   useEffect(() => {
@@ -143,12 +153,16 @@ export function Header() {
 
           {/* CTA Button */}
           <div className="hidden lg:flex items-center space-x-4">
-            <Link
-              href="/admin"
-              className="text-sm font-medium text-gray-600 hover:text-primary-600 transition-colors"
-            >
-              Admin
-            </Link>
+            {(userRole === 'superadmin' || userRole === 'owner') && (
+              <Link
+                href="/dashboard"
+                className="flex items-center gap-2 px-3 py-2 text-sm font-medium text-gray-600 hover:text-primary-600 transition-colors rounded-md hover:bg-gray-100"
+                title="Admin Dashboard"
+              >
+                <Settings className="w-4 h-4" />
+                <span>Admin</span>
+              </Link>
+            )}
             <Link
               href="/tours"
               className="btn-primary"

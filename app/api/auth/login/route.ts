@@ -20,6 +20,16 @@ export async function POST(request: Request) {
           loginMethod: 'credentials'
         }
       }
+      // Demo user credentials
+      else if (email === 'walkaboutdemo' && password === 'demo2024') {
+        authenticated = true
+        userData = {
+          email: 'walkaboutdemo',
+          name: 'Demo User',
+          role: 'demo',
+          loginMethod: 'credentials'
+        }
+      }
     } else if (loginMethod === 'instagram') {
       // Only Danielle Berkely can login via Instagram
       if (username === 'walkaboutsd') {

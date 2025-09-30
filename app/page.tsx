@@ -23,7 +23,7 @@ export default function ComingSoonPage() {
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentBg((prev) => (prev + 1) % backgroundImages.length)
-    }, 6000)
+    }, 4000) // Changed from 6000 to 4000 for faster transitions
     return () => clearInterval(timer)
   }, [])
 
@@ -195,19 +195,18 @@ export default function ComingSoonPage() {
           <Instagram className="w-5 h-5" />
         </motion.a>
 
-        {/* Admin Access - bottom right, extremely subtle */}
+        {/* Login button - top right */}
         <motion.div
           initial={{ opacity: 0 }}
-          animate={{ opacity: 0.2 }}
-          whileHover={{ opacity: 0.5 }}
+          animate={{ opacity: 1 }}
           transition={{ duration: 1, delay: 3 }}
-          className="absolute bottom-8 right-8"
+          className="absolute top-8 right-8"
         >
           <Link
             href="/admin/login"
-            className="text-white/20 hover:text-white/40 transition-colors"
+            className="px-6 py-2 bg-white/10 backdrop-blur-sm text-white/90 hover:text-white hover:bg-white/20 transition-all rounded-full border border-white/20 font-light tracking-wider text-sm"
           >
-            <ArrowRight className="w-4 h-4" />
+            Login
           </Link>
         </motion.div>
       </div>

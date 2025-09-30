@@ -39,7 +39,13 @@ export default function AdminLoginPage() {
         // Also set session storage for backward compatibility
         sessionStorage.setItem('adminAuth', 'true')
         sessionStorage.setItem('adminUser', JSON.stringify(data.user))
-        router.push('/dashboard')
+
+        // Redirect based on role
+        if (data.user.role === 'demo') {
+          router.push('/explore') // Demo users go to main site
+        } else {
+          router.push('/explore') // All users go to main site first
+        }
       } else {
         setError('Invalid credentials. Please try again.')
       }
@@ -80,7 +86,7 @@ export default function AdminLoginPage() {
           if (data.success) {
             sessionStorage.setItem('adminAuth', 'true')
             sessionStorage.setItem('adminUser', JSON.stringify(data.user))
-            router.push('/dashboard')
+            router.push('/explore') // Redirect to main site
           } else {
             setError('Access Denied: Only the WalkAboutSD owner (Danielle Berkely) can access admin via Instagram.')
             setIsLoading(false)

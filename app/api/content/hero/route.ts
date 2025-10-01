@@ -1,5 +1,4 @@
 import { NextResponse } from 'next/server'
-import { cookies } from 'next/headers'
 
 // In-memory storage for demo (replace with Supabase when configured)
 let heroContent = [
@@ -54,10 +53,10 @@ let heroContent = [
   }
 ]
 
-// Check if user is authenticated
-function isAuthenticated() {
-  const cookieStore = cookies()
-  return cookieStore.get('adminAuth')?.value === 'true'
+// Check if user is authenticated from request headers
+function isAuthenticated(request: Request) {
+  const cookie = request.headers.get('cookie')
+  return cookie?.includes('adminAuth=true') || false
 }
 
 export async function GET() {
@@ -75,7 +74,7 @@ export async function GET() {
 }
 
 export async function POST(request: Request) {
-  if (!isAuthenticated()) {
+  if (!isAuthenticated(request)) {
     return NextResponse.json(
       { success: false, error: 'Unauthorized' },
       { status: 401 }
@@ -104,7 +103,7 @@ export async function POST(request: Request) {
 }
 
 export async function PUT(request: Request) {
-  if (!isAuthenticated()) {
+  if (!isAuthenticated(request)) {
     return NextResponse.json(
       { success: false, error: 'Unauthorized' },
       { status: 401 }
@@ -138,7 +137,7 @@ export async function PUT(request: Request) {
 }
 
 export async function DELETE(request: Request) {
-  if (!isAuthenticated()) {
+  if (!isAuthenticated(request)) {
     return NextResponse.json(
       { success: false, error: 'Unauthorized' },
       { status: 401 }

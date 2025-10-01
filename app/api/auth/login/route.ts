@@ -1,5 +1,4 @@
 import { NextResponse } from 'next/server'
-import { cookies } from 'next/headers'
 
 export async function POST(request: Request) {
   try {
@@ -46,25 +45,30 @@ export async function POST(request: Request) {
     }
 
     if (authenticated && userData) {
-      // Set authentication cookie
-      cookies().set('adminAuth', 'true', {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === 'production',
-        sameSite: 'strict',
-        maxAge: 60 * 60 * 24 * 7 // 7 days
-      })
-
-      cookies().set('adminUser', JSON.stringify(userData), {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === 'production',
-        sameSite: 'strict',
-        maxAge: 60 * 60 * 24 * 7 // 7 days
-      })
-
-      return NextResponse.json({
+      // Create response with user data
+      const response = NextResponse.json({
         success: true,
         user: userData
       })
+
+      // Set authentication cookies on response
+      response.cookies.set('adminAuth', 'true', {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: 'strict',
+        maxAge: 60 * 60 * 24 * 7, // 7 days
+        path: '/'
+      })
+
+      response.cookies.set('adminUser', JSON.stringify(userData), {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: 'strict',
+        maxAge: 60 * 60 * 24 * 7, // 7 days
+        path: '/'
+      })
+
+      return response
     }
 
     return NextResponse.json({
@@ -83,8 +87,10 @@ export async function POST(request: Request) {
 
 export async function DELETE() {
   // Logout endpoint
-  cookies().delete('adminAuth')
-  cookies().delete('adminUser')
+  const response = NextResponse.json({ success: true })
 
-  return NextResponse.json({ success: true })
+  response.cookies.delete('adminAuth')
+  response.cookies.delete('adminUser')
+
+  return response
 }
